@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>James Foehner — Data Science &amp; Financial Research</title>
+<meta name="description" content="James Foehner: data science student at Northeastern University building machine learning models and financial research tools.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --ink: #14171c;
+  --muted: #5d6470;
+  --rule: #e3e6ea;
+  --accent: #2f5bd3;
+  --accent-soft: #eef2fd;
+  --bar: #c9d3ea;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1216; --ink: #e6e9ee; --muted: #98a1ae; --rule: #262c34;
+    --accent: #8aa8ff; --accent-soft: #182238; --bar: #334061; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1216; --ink: #e6e9ee; --muted: #98a1ae; --rule: #262c34;
+  --accent: #8aa8ff; --accent-soft: #182238; --bar: #334061; color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem; line-height: 1.6;
+}
+.wrap { max-width: 60rem; margin: 0 auto; padding: 0 1.25rem; }
+.mono { font-family: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+header.top { padding: 4rem 0 2.5rem; border-bottom: 1px solid var(--rule); }
+header.top h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1.05; margin: 0 0 .9rem; font-weight: 700; letter-spacing: -0.02em; }
+header.top p.lede { font-size: 1.15rem; color: var(--muted); max-width: 38rem; margin: 0 0 1.5rem; }
+nav.links { display: flex; flex-wrap: wrap; gap: .6rem; }
+nav.links a {
+  font-family: "IBM Plex Mono", Menlo, monospace; font-size: .85rem; text-decoration: none;
+  border: 1px solid var(--rule); padding: .45rem .8rem; border-radius: 4px; color: var(--ink);
+}
+nav.links a:hover { border-color: var(--accent); color: var(--accent); }
+nav.links a.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+
+section { padding: 3rem 0; border-bottom: 1px solid var(--rule); }
+section .wrap > h2 {
+  font-family: "IBM Plex Mono", Menlo, monospace; font-size: .8rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin: 0 0 1.5rem;
+}
+.featured { display: grid; grid-template-columns: 1.15fr 1fr; gap: 2.5rem; align-items: start; }
+@media (max-width: 46rem) { .featured { grid-template-columns: 1fr; gap: 1.75rem; } }
+.featured h3 { font-size: 1.55rem; line-height: 1.2; margin: 0 0 .4rem; letter-spacing: -0.01em; }
+.meta { font-family: "IBM Plex Mono", Menlo, monospace; font-size: .8rem; color: var(--muted); margin-bottom: 1rem; }
+.featured p { margin: 0 0 1rem; }
+ul.results { list-style: none; padding: 0; margin: 0 0 1.25rem; }
+ul.results li { padding: .55rem 0; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 7.5rem 1fr; gap: .75rem; }
+ul.results li:last-child { border-bottom: 1px solid var(--rule); }
+ul.results .num { font-family: "IBM Plex Mono", Menlo, monospace; font-weight: 500; color: var(--accent); }
+.panel { background: var(--accent-soft); padding: 1.25rem; border-radius: 6px; }
+.panel figure { margin: 0; }
+.panel svg { width: 100%; height: auto; display: block; }
+.panel svg text { font-family: "IBM Plex Mono", Menlo, monospace; fill: var(--ink); }
+.panel figcaption { font-size: .82rem; color: var(--muted); margin-top: .6rem; line-height: 1.45; }
+.panel .lesson { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--rule); font-size: .92rem; }
+.panel .lesson strong { display: block; font-family: "IBM Plex Mono", Menlo, monospace; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .3rem; }
+.actions { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; font-family: "IBM Plex Mono", Menlo, monospace; font-size: .88rem; }
+
+.project { display: grid; grid-template-columns: 11rem 1fr; gap: 1.5rem; padding: 1.5rem 0; border-top: 1px solid var(--rule); }
+.project:first-of-type { border-top: 0; padding-top: 0; }
+@media (max-width: 40rem) { .project { grid-template-columns: 1fr; gap: .35rem; } }
+.project h3 { font-size: 1.15rem; margin: 0 0 .35rem; }
+.project p { margin: 0 0 .6rem; }
+.tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+.tags span { font-family: "IBM Plex Mono", Menlo, monospace; font-size: .75rem; border: 1px solid var(--rule); padding: .15rem .5rem; border-radius: 3px; color: var(--muted); }
+
+.cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+@media (max-width: 40rem) { .cols { grid-template-columns: 1fr; } }
+.cols h3 { font-size: 1rem; margin: 0 0 .25rem; }
+.cols p { margin: 0 0 1rem; color: var(--ink); }
+dl.skills { margin: 0; display: grid; grid-template-columns: 8.5rem 1fr; gap: .5rem 1rem; }
+@media (max-width: 40rem) { dl.skills { grid-template-columns: 1fr; gap: .1rem; } dl.skills dd { margin-bottom: .6rem; } }
+dl.skills dt { font-family: "IBM Plex Mono", Menlo, monospace; font-size: .85rem; color: var(--muted); }
+dl.skills dd { margin: 0; }
+
+footer { padding: 2.5rem 0 3.5rem; color: var(--muted); font-size: .9rem; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <h1>James Foehner</h1>
+    <p class="lede">Data science student at Northeastern University. I build machine learning models and research tools, mostly around financial markets, and turn them into decisions someone could actually act on.</p>
+    <nav class="links" aria-label="Contact and links">
+      <a class="primary" href="James_Foehner_Resume.pdf">Resume (PDF)</a>
+      <a href="https://github.com/jamefoehner">GitHub</a>
+      <a href="https://www.linkedin.com/in/james-foehner/">LinkedIn</a>
+      <a href="mailto:foehner.j@northeastern.edu">foehner.j@northeastern.edu</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="featured">
+  <div class="wrap">
+    <h2>Featured project</h2>
+    <div class="featured">
+      <div>
+        <h3>Activist Hedge Fund Target Screener &amp; Post Holdings Activist Pitch</h3>
+        <div class="meta">Oct 2026 · Python · SQL · WRDS (CRSP, Compustat) · SEC EDGAR · Excel</div>
+        <p>I collected 259 activist hedge fund campaigns from SEC 13D filings, measured how target stocks reacted, and trained a model to predict which companies activists will target next. I then used it to find Post Holdings and wrote a full activist pitch with an Excel valuation model.</p>
+        <ul class="results">
+          <li><span class="num">+6.5%</span><span>stock return vs. the market in the three days around a 13D filing (t = 12.9, 252 campaigns)</span></li>
+          <li><span class="num">AUC 0.75</span><span>walk-forward test, 2016–2025; companies in the model's top 1% were targeted 4.5x as often as average</span></li>
+          <li><span class="num">3rd / 2,522</span><span>Post Holdings' rank among U.S. companies; pitch: sell Weetabix, pay down debt, stop debt-funded buybacks</span></li>
+          <li><span class="num">182</span><span>spin-offs since 2010 analyzed to test whether separating Post's businesses would add value</span></li>
+        </ul>
+        <div class="actions">
+          <a href="https://github.com/jamefoehner/activist-target-screener">Code &amp; README →</a>
+          <a href="post-holdings-memo.html">Investment memo →</a>
+          <a href="https://github.com/jamefoehner/activist-target-screener/tree/main/case_study">Excel model →</a>
+        </div>
+      </div>
+      <div class="panel">
+        <figure>
+          <svg viewBox="0 0 360 190" role="img" aria-labelledby="lift-title lift-desc">
+            <title id="lift-title">Share of future activist targets caught in the model's top 10%</title>
+            <desc id="lift-desc">Random 10 percent, size only 6 percent, logistic regression 23 percent, gradient boosting 26 percent.</desc>
+            <text x="0" y="14" font-size="11" fill="var(--muted)">Targets caught in top 10% of ranked companies</text>
+            <text x="0" y="48" font-size="11">Random</text>
+            <rect x="118" y="36" width="69" height="16" fill="var(--bar)"/>
+            <text x="193" y="49" font-size="11">10%</text>
+            <text x="0" y="84" font-size="11">Size only</text>
+            <rect x="118" y="72" width="41" height="16" fill="var(--bar)"/>
+            <text x="165" y="85" font-size="11">6%</text>
+            <text x="0" y="120" font-size="11">Logistic</text>
+            <rect x="118" y="108" width="159" height="16" fill="var(--accent)" opacity="0.6"/>
+            <text x="283" y="121" font-size="11">23%</text>
+            <text x="0" y="156" font-size="11">Grad. boosting</text>
+            <rect x="118" y="144" width="180" height="16" fill="var(--accent)"/>
+            <text x="304" y="157" font-size="11" font-weight="500">26%</text>
+            <line x1="118" y1="30" x2="118" y2="168" stroke="var(--rule)"/>
+          </svg>
+          <figcaption>Out-of-sample, 27,716 company-years. Features use only information public at the time, with a one-year gap between training and test data.</figcaption>
+        </figure>
+        <div class="lesson">
+          <strong>What I learned</strong>
+          I tested two of my own assumptions against the data, that paying down debt would lift Post's valuation and that a spin-off would unlock value. Neither held, so I rebuilt the pitch around what did.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <h2>Other projects</h2>
+
+    <article class="project">
+      <div class="meta">Jan – Apr 2026</div>
+      <div>
+        <h3>NBA Prediction AI</h3>
+        <p>An end-to-end machine learning pipeline on about 80,000 rows of NBA play-by-play data. A gradient boosting model predicts in-game win probability (ROC-AUC 0.84, Brier score 0.071), beating a logistic regression baseline. A random forest classifies plays across six imbalanced event types (68% accuracy), and three regressors predict player points, assists and rebounds (±4.1 points MAE). Everything is served in an interactive Streamlit app.</p>
+        <div class="tags"><span>Python</span><span>scikit-learn</span><span>Streamlit</span><span>Plotly</span></div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="meta">Aug – Dec 2025</div>
+      <div>
+        <h3>Airbnb Price Prediction Model</h3>
+        <p>Predicts nightly prices for more than 3,500 Boston Airbnb listings. I benchmarked five regression models with grid search and cross-validation. The tuned random forest cut average error from about $110 to $75 (32%) and raised test R² from 0.12 to 0.48. Feature importance and geospatial analysis showed location and host listing count were the strongest price drivers.</p>
+        <div class="tags"><span>Python</span><span>scikit-learn</span><span>Feature engineering</span><span>Geospatial analysis</span></div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="meta">May – Jul 2025</div>
+      <div>
+        <h3>Aircraft Incident Database &amp; Analytics</h3>
+        <p>A normalized (3NF) relational database for aircraft incident data, loaded through an R-based ETL pipeline into a cloud-hosted MySQL database. SQL views and stored procedures support incident reporting and airline analysis, with integrity checks against the source data.</p>
+        <div class="tags"><span>R</span><span>MySQL</span><span>SQL</span><span>ETL</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2>Skills</h2>
+    <dl class="skills">
+      <dt>Languages</dt><dd>Python, R, SQL, C++</dd>
+      <dt>Machine learning</dt><dd>Supervised learning, gradient boosting, random forests, predictive modeling, walk-forward validation</dd>
+      <dt>Finance</dt><dd>Financial modeling (Excel), valuation (comparable companies, sum-of-the-parts), event studies</dd>
+      <dt>Data</dt><dd>WRDS (CRSP, Compustat), SEC EDGAR, data cleaning, ETL, relational databases</dd>
+    </dl>
+  </div>
+</section>
+
+<section id="background">
+  <div class="wrap">
+    <h2>Education</h2>
+    <div>
+      <div>
+        <h3>Northeastern University, Khoury College of Computer Sciences</h3>
+        <p class="meta" style="margin-bottom:.4rem">Candidate for B.S. in Data Science · Expected May 2027 · Boston, MA</p>
+        <p>Coursework: Programming with Data Science, Machine Learning &amp; Data Mining, Programming in C++, Statistics for Economists, Algorithms</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>James Foehner · Boston, MA</span>
+    <span><a href="mailto:foehner.j@northeastern.edu">foehner.j@northeastern.edu</a> · <a href="https://www.linkedin.com/in/james-foehner/">LinkedIn</a> · <a href="https://github.com/jamefoehner">GitHub</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
