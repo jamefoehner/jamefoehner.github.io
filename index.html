@@ -122,11 +122,11 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div>
         <h3>Activist Hedge Fund Target Screener &amp; Post Holdings Activist Pitch</h3>
         <div class="meta">Oct 2026 · Python · SQL · WRDS (CRSP, Compustat) · SEC EDGAR · Excel</div>
-        <p>I collected 259 activist hedge fund campaigns from SEC 13D filings, measured how target stocks reacted, and trained a model to predict which companies activists will target next. I then used it to find Post Holdings and wrote a full activist pitch with an Excel valuation model.</p>
+        <p>I collected 232 activist hedge fund campaigns from SEC 13D filings, measured how target stocks reacted, and trained a model to predict which companies activists will target next. I then used it to find Post Holdings and wrote a full activist pitch with an Excel valuation model.</p>
         <ul class="results">
-          <li><span class="num">+6.5%</span><span>stock return vs. the market in the three days around a 13D filing (t = 12.9, 252 campaigns)</span></li>
-          <li><span class="num">AUC 0.75</span><span>walk-forward test, 2016–2025; companies in the model's top 1% were targeted 4.5x as often as average</span></li>
-          <li><span class="num">3rd / 2,522</span><span>Post Holdings' rank among U.S. companies; pitch: sell Weetabix, pay down debt, stop debt-funded buybacks</span></li>
+          <li><span class="num">+7.0%</span><span>stock return vs. the market in the three days around a 13D filing (t = 13.3, 227 campaigns)</span></li>
+          <li><span class="num">27%</span><span>of future targets caught in the model's top 10% in a walk-forward test, 2016–2025 (AUC 0.73)</span></li>
+          <li><span class="num">7th / 2,606</span><span>Post Holdings' rank among U.S. companies; pitch: sell Weetabix, pay down debt, stop debt-funded buybacks</span></li>
           <li><span class="num">182</span><span>spin-offs since 2010 analyzed to test whether separating Post's businesses would add value</span></li>
         </ul>
         <div class="actions">
@@ -139,23 +139,23 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <figure>
           <svg viewBox="0 0 360 190" role="img" aria-labelledby="lift-title lift-desc">
             <title id="lift-title">Share of future activist targets caught in the model's top 10%</title>
-            <desc id="lift-desc">Random 10 percent, size only 6 percent, logistic regression 23 percent, gradient boosting 26 percent.</desc>
+            <desc id="lift-desc">Random 10 percent, size only 5 percent, logistic regression 19 percent, gradient boosting 27 percent.</desc>
             <text x="0" y="14" font-size="11" fill="var(--muted)">Targets caught in top 10% of ranked companies</text>
             <text x="0" y="48" font-size="11">Random</text>
             <rect x="118" y="36" width="69" height="16" fill="var(--bar)"/>
             <text x="193" y="49" font-size="11">10%</text>
             <text x="0" y="84" font-size="11">Size only</text>
-            <rect x="118" y="72" width="41" height="16" fill="var(--bar)"/>
-            <text x="165" y="85" font-size="11">6%</text>
+            <rect x="118" y="72" width="35" height="16" fill="var(--bar)"/>
+            <text x="159" y="85" font-size="11">5%</text>
             <text x="0" y="120" font-size="11">Logistic</text>
-            <rect x="118" y="108" width="159" height="16" fill="var(--accent)" opacity="0.6"/>
-            <text x="283" y="121" font-size="11">23%</text>
+            <rect x="118" y="108" width="131" height="16" fill="var(--accent)" opacity="0.6"/>
+            <text x="255" y="121" font-size="11">19%</text>
             <text x="0" y="156" font-size="11">Grad. boosting</text>
-            <rect x="118" y="144" width="180" height="16" fill="var(--accent)"/>
-            <text x="304" y="157" font-size="11" font-weight="500">26%</text>
+            <rect x="118" y="144" width="186" height="16" fill="var(--accent)"/>
+            <text x="310" y="157" font-size="11" font-weight="500">27%</text>
             <line x1="118" y1="30" x2="118" y2="168" stroke="var(--rule)"/>
           </svg>
-          <figcaption>Out-of-sample, 27,716 company-years. Features use only information public at the time, with a one-year gap between training and test data.</figcaption>
+          <figcaption>Out-of-sample, 27,834 company-years. Features use only information public at the time, with a one-year gap between training and test data.</figcaption>
         </figure>
         <div class="lesson">
           <strong>What I learned</strong>
@@ -174,7 +174,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div class="meta">Nov 2026</div>
       <div>
         <h3>Do Activist Filings Reach Prices Slowly? An Information Diffusion Study</h3>
-        <p>A follow-up to the activist project testing gradual information diffusion. Across 248 campaigns, targets absorbed only about 43% of their price move on the filing day and the next; the rest drifted in over three weeks. The drift was concentrated in stocks that normally respond slowly to market news and in filings on busy news days. The price-delay effect survived outlier trimming, median regression, an illiquidity control, and a multiple-testing adjustment. The apparent small-company effect did not, because illiquidity explained it.</p>
+        <p>A follow-up to the activist project testing gradual information diffusion. Across 225 campaigns, targets absorbed only about 46% of their price move on the filing day and the next; the rest drifted in over three weeks. The drift was concentrated in stocks that normally respond slowly to market news and in filings on busy news days. The price-delay effect survived outlier trimming, median regression, an illiquidity control, and a multiple-testing adjustment. The apparent small-company effect did not, because illiquidity explained it.</p>
         <div class="tags"><span>Python</span><span>CRSP</span><span>I/B/E/S</span><span>Event study</span><span>Robust regression</span></div>
         <div class="actions" style="margin-top:.6rem"><a href="https://github.com/jamefoehner/activist-target-screener/blob/main/docs/diffusion_study.md">Write-up →</a></div>
       </div>
