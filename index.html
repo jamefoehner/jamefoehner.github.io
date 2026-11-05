@@ -173,6 +173,16 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <article class="project">
       <div class="meta">Nov 2026</div>
       <div>
+        <h3>Can Language Models Read Activist Filings? An LLM Evaluation</h3>
+        <p>A benchmark testing whether language models can separate real activist demands from legal boilerplate in SEC 13D filings. I hand-labeled 100 filings across ten demand categories, seat counts, proxy-fight threats and tone, writing a labeling guide as I went; a second person labeled 20 independently. With the guide, Claude Sonnet 5.5 got every demand right on 83% of filings (98% of clear ones) and matched the reference labels on all 20 shared filings, versus 18 of 20 for the second human. The written rules mattered more than model size, and filings where every model disagreed with me surfaced a 7% label error rate.</p>
+        <div class="tags"><span>Python</span><span>Claude API</span><span>LLM evaluation</span><span>Streamlit</span><span>SEC EDGAR</span></div>
+        <div class="actions" style="margin-top:.6rem"><a href="https://github.com/jamefoehner/activist-target-screener/blob/main/docs/llm_eval_writeup.md">Write-up →</a></div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="meta">Nov 2026</div>
+      <div>
         <h3>Do Activist Filings Reach Prices Slowly? An Information Diffusion Study</h3>
         <p>A follow-up to the activist project testing gradual information diffusion. Across 225 campaigns, targets absorbed only about 46% of their price move on the filing day and the next; the rest drifted in over three weeks. The drift was concentrated in stocks that normally respond slowly to market news and in filings on busy news days. The price-delay effect survived outlier trimming, median regression, an illiquidity control, and a multiple-testing adjustment. The apparent small-company effect did not, because illiquidity explained it.</p>
         <div class="tags"><span>Python</span><span>CRSP</span><span>I/B/E/S</span><span>Event study</span><span>Robust regression</span></div>
