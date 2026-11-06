@@ -173,6 +173,16 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <article class="project">
       <div class="meta">Nov 2026</div>
       <div>
+        <h3>Activist Filing Monitor (live web app)</h3>
+        <p>A web app that tracks new SEC 13D filings from major activist investors, pulls out the section where each investor explains its plans, and uses Claude to tag what it wants: board seats, a sale, buybacks, and seven other categories. Search any of about 2,600 companies to see its activist-target score from my screener, past campaigns and their returns, and recent filings. Every label sits next to the filing text so it can be checked, and filings that do not amend that section are marked rather than labeled. On my 89 hand-labeled filings the labeler scored macro-F1 0.84 and got all ten categories right on 76% of them (always guessing the most common label gets 45%). Governance and capital discipline are its weakest categories, so the page tells users to treat labels as drafts.</p>
+        <div class="tags"><span>Python</span><span>Streamlit</span><span>Claude API</span><span>SEC EDGAR</span><span>pytest</span></div>
+        <div class="actions" style="margin-top:.6rem"><a href="https://activist-monitor.streamlit.app/">Live app →</a><a href="https://github.com/jamefoehner/activist-monitor">Code →</a></div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="meta">Nov 2026</div>
+      <div>
         <h3>Can a Small Model Learn to Read Activist Filings? Reinforcement Learning and Reward Hacking</h3>
         <p>I trained a 1.5-billion-parameter open model (Qwen2.5-1.5B) to tag 13D filings with ten demand categories, using Claude-generated labels for training and my 89 hand-labeled filings only for testing. Fine-tuning lifted macro-F1 from 0.35 to 0.67. Reinforcement learning from the untrained model then found shortcuts that the headline metric missed. With a plain accuracy reward, it answered &ldquo;no demands&rdquo; on 66 of 89 filings and still scored 87% accuracy. With a stricter reward, it collapsed to a single label and did worse than always guessing the most common one. Starting from the fine-tuned model avoided the collapse, and the best run reached 0.73, which is not statistically distinguishable from fine-tuning alone. Single runs on a small test set, so these are demonstrations of failure modes, not rates.</p>
         <div class="tags"><span>Python</span><span>PyTorch</span><span>LoRA fine-tuning</span><span>GRPO</span><span>Hugging Face</span><span>Bootstrap testing</span></div>
