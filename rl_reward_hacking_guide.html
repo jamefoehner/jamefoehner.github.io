@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RL Reward-Hacking Study: Complete Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #ffffff;
+  --ink: #1b2430;
+  --muted: #5b6573;
+  --rule: #d7dce1;
+  --accent: #1f5e4a;
+  --accent-soft: #e7f1ec;
+  --bar-sq: #8a94a1;
+  --bar-plan: #7fb39c;
+  --bar-rerate: #1f5e4a;
+  --today: #b4492f;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #141a20; --ink: #e4e8ec; --muted: #9aa5b1; --rule: #2e3843;
+    --accent: #7fc2a5; --accent-soft: #1d2e28; --bar-sq: #6f7a87; --bar-plan: #4f8c72;
+    --bar-rerate: #8fd1b4; --today: #e8866c; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #141a20; --ink: #e4e8ec; --muted: #9aa5b1; --rule: #2e3843;
+  --accent: #7fc2a5; --accent-soft: #1d2e28; --bar-sq: #6f7a87; --bar-plan: #4f8c72;
+  --bar-rerate: #8fd1b4; --today: #e8866c; color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+  font-size: 1.0625rem; line-height: 1.62;
+}
+main { max-width: 44rem; margin: 0 auto; padding: 3rem 1.25rem 4rem; }
+h1, h2, h3, .memo-head, table, figcaption, .note, .ask {
+  font-family: "Libre Franklin", "Helvetica Neue", Arial, sans-serif;
+}
+.memo-head {
+  display: grid; grid-template-columns: 4.5rem 1fr; gap: .25rem 1rem;
+  font-size: .9rem; padding-bottom: 1.25rem; border-bottom: 3px solid var(--ink); margin-bottom: 2rem;
+}
+.memo-head dt { color: var(--muted); }
+.memo-head dd { margin: 0; }
+h1 { font-size: 1.95rem; line-height: 1.18; font-weight: 700; margin: 0 0 1.25rem; letter-spacing: -0.01em; }
+h2 { font-size: 1.2rem; font-weight: 700; margin: 2.75rem 0 .75rem; color: var(--accent); }
+h3 { font-size: 1rem; font-weight: 600; margin: 1.75rem 0 .4rem; }
+p { margin: 0 0 1rem; }
+.ask {
+  background: var(--accent-soft); border-left: 4px solid var(--accent);
+  padding: 1rem 1.25rem; margin: 1.5rem 0 2rem; font-size: 1rem; line-height: 1.5;
+}
+.ask strong { display: block; margin-bottom: .35rem; }
+ol.steps { padding-left: 1.4rem; }
+ol.steps li { margin-bottom: .6rem; }
+ul { padding-left: 1.25rem; }
+li { margin-bottom: .45rem; }
+.table-wrap { overflow-x: auto; margin: 1rem 0 1.5rem; }
+table { border-collapse: collapse; width: 100%; font-size: .88rem; line-height: 1.35; }
+th, td { padding: .5rem .6rem; text-align: right; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; white-space: normal; }
+thead th { font-weight: 600; border-bottom: 2px solid var(--ink); vertical-align: bottom; }
+tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
+td.hi { background: var(--accent-soft); font-weight: 700; }
+figure { margin: 1.75rem 0 2rem; }
+figure svg { width: 100%; height: auto; display: block; }
+figcaption, .note { font-size: .82rem; color: var(--muted); line-height: 1.45; }
+figcaption { margin-top: .5rem; }
+.note { margin-top: -.75rem; margin-bottom: 1.25rem; }
+svg text { font-family: "Libre Franklin", Arial, sans-serif; fill: var(--ink); }
+svg .axis { stroke: var(--rule); }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--rule); font-size: .82rem; color: var(--muted); font-family: "Libre Franklin", Arial, sans-serif; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 34rem) {
+  main { padding-top: 1.75rem; }
+  h1 { font-size: 1.55rem; }
+  body { font-size: 1rem; }
+}
+@media print {
+  :root { --paper: #fff; --ink: #000; --muted: #444; }
+  main { max-width: none; padding: 0; }
+  h2 { break-after: avoid; }
+  figure, .table-wrap, .ask { break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}
+
+blockquote.script { margin: 1rem 0 1.5rem; padding: 1rem 1.25rem; border-left: 4px solid var(--accent); background: var(--accent-soft); font-size: 1rem; line-height: 1.6; }
+blockquote.script p:last-child { margin-bottom: 0; }
+nav.toc { font-family: "Libre Franklin", Arial, sans-serif; font-size: .92rem; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 1rem 0; margin: 0 0 2rem; }
+nav.toc ol { margin: 0; padding-left: 1.4rem; columns: 2; column-gap: 2rem; }
+nav.toc li { margin-bottom: .3rem; break-inside: avoid; }
+@media (max-width: 34rem) { nav.toc ol { columns: 1; } }
+dl.terms dt { font-family: "Libre Franklin", Arial, sans-serif; font-weight: 600; margin-top: .8rem; }
+dl.terms dd { margin: .15rem 0 0 0; }
+.qa dt { font-family: "Libre Franklin", Arial, sans-serif; font-weight: 600; margin-top: 1rem; }
+.qa dd { margin: .25rem 0 0 0; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>RL Reward-Hacking Study: Complete Guide</h1>
+<p class="note" style="margin-top:0">James Foehner · November 2026 · Companion to <code>docs/rl_reward_hacking.md</code> in the activist-target-screener repository</p>
+
+<nav class="toc" aria-label="Contents">
+<ol>
+  <li><a href="#idea">The idea</a></li>
+  <li><a href="#task">The task and the labels</a></li>
+  <li><a href="#step1">Step 1: Building the data</a></li>
+  <li><a href="#step2">Step 2: Baselines</a></li>
+  <li><a href="#step3">Step 3: Supervised fine-tuning</a></li>
+  <li><a href="#step4">Step 4: Reinforcement learning (GRPO)</a></li>
+  <li><a href="#step5">Step 5: The reward-hacking experiments</a></li>
+  <li><a href="#step6">Step 6: The control run</a></li>
+  <li><a href="#stats">How the results were tested</a></li>
+  <li><a href="#learned">What we learned</a></li>
+  <li><a href="#mistakes">Mistakes and surprises along the way</a></li>
+  <li><a href="#limits">Limitations</a></li>
+  <li><a href="#next">Next steps</a></li>
+  <li><a href="#pitch">How to explain it</a></li>
+  <li><a href="#questions">Interview questions</a></li>
+  <li><a href="#terms">Key terms</a></li>
+</ol>
+</nav>
+
+<div class="ask">
+  <strong>The five things to know cold</strong>
+  1. Fine-tuning on Claude's labels took a small model from macro-F1 0.35 to 0.665 on human-labeled filings. 2. Reinforcement learning from the untrained model collapsed under <em>both</em> rewards I tried: to "answer nothing" under the accuracy reward, and to a single label under the stricter reward. 3. The same stricter reward did not collapse when started from the fine-tuned model. 4. RL on top of fine-tuning gave 0.64 to 0.73 macro-F1, none of it statistically distinguishable from fine-tuning alone. 5. Every result is a single run on an 89-filing test set, so these are demonstrations of failure modes, not measured rates.
+</div>
+
+<h2 id="idea">1. The idea</h2>
+<p>The activist project already had a labeling guide and 100 hand-labeled 13D filings. This study asks a different question: <strong>can a small open model learn that labeling task, and what happens when you train it with reinforcement learning (RL) instead of examples?</strong></p>
+<p>The interesting part is not the accuracy number. RL optimizes a reward, and a model will find whatever behavior scores well on that reward, including behavior you never intended. That is called <strong>reward hacking</strong>. This task is a clean place to show it, because the labels are imbalanced and a lazy answer ("none of these") already looks good on a naive accuracy score.</p>
+<p>The project was designed in phases: build the data, measure an untrained baseline, fine-tune with examples (SFT), add RL, deliberately try a hackable reward against a better one, and write it up.</p>
+
+<h2 id="task">2. The task and the labels</h2>
+<p>Item 4 of a Schedule 13D is where an activist explains what it wants. The model reads that text and outputs a JSON object with ten yes/no fields:</p>
+<ul>
+  <li><code>board_seats</code>, <code>sale_or_review</code>, <code>breakup_spin</code>, <code>capital_return</code>, <code>operations_costs</code>, <code>management_change</code>, <code>governance</code>, <code>oppose_deal</code>, <code>capital_discipline</code>, <code>engagement_only</code>.</li>
+</ul>
+<p>The central rule from <code>LABELING_GUIDE.md</code>: label <strong>intent, not boilerplate</strong>. Almost every 13D contains a paragraph reserving the right to do anything later; that is not a demand. <code>engagement_only</code> means talks with management and nothing specific, and is never combined with another field.</p>
+<p>Three kinds of labels appear in this project, and mixing them up is the easiest way to get confused:</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Name</th><th>Who made them</th><th>Used for</th></tr></thead>
+  <tbody>
+    <tr><td>Silver labels</td><td>Claude Sonnet, using the labeling guide</td><td>Training and the RL reward</td></tr>
+    <tr><td>Gold labels</td><td>Me, by hand</td><td>Final testing only (89 filings)</td></tr>
+    <tr><td>Dev labels</td><td>Silver</td><td>Watching training progress (37 filings)</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Silver agreed with my gold labels about 83% of the time on the LLM evaluation project. That matters: a model trained only on silver labels can at best approach the silver labeler, not exceed it.</p>
+<p>The label mix is skewed. <code>engagement_only</code> is on 45% of the gold set and 63% of the training set. Three fields have 5 or fewer gold positives (<code>capital_return</code>, <code>management_change</code>, <code>oppose_deal</code>), so their scores swing a lot.</p>
+
+<h2 id="step1">3. Step 1: Building the data</h2>
+<p><code>build_training_data.py</code> pulls filings from the existing campaign data, extracts the Item 4 text, has Sonnet label them, and writes the splits into <code>data/rl/</code>:</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>File</th><th>Filings</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr><td><code>train.jsonl</code></td><td>342</td><td>SFT, and the prompts for RL</td></tr>
+    <tr><td><code>dev.jsonl</code></td><td>37</td><td>Progress checks during training</td></tr>
+    <tr><td><code>test_gold.jsonl</code></td><td>89</td><td>Final test, never trained on</td></tr>
+    <tr><td><code>rl_prompts.jsonl</code></td><td>149</td><td>Extra RL prompts, with train and dev removed</td></tr>
+  </tbody>
+</table>
+</div>
+<p>I added two options to the build script: <code>--exclude-jsonl</code> (drop filings already in train or dev) and <code>--only-out</code> (write only the extra prompt file without touching the other splits). The gold set is kept completely separate so no model ever sees it during training.</p>
+<p><strong>Data caveats to know:</strong> about 92% of the pool is amendments (13D/A), with only 159 original filings. ValueAct has a single filing. Also, <code>exclusions.csv</code> has 3 rows, while the plan assumed about 30, and <code>data/proposed_exclusions.csv</code> may hold the rest. I didn't resolve that, so before relying on the "89 of 100" figure, check how the gold set was filtered.</p>
+
+<h2 id="step2">4. Step 2: Baselines</h2>
+<p><code>baseline_eval.py</code> scores any model on the gold set. Before trusting any number, it first prints two trivial baselines:</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Answer</th><th>Macro-F1</th><th>Exact match</th><th>Mean accuracy</th></tr></thead>
+  <tbody>
+    <tr><td>Always "no" for all ten fields</td><td>0.000</td><td>1.1%</td><td>84.4%</td></tr>
+    <tr><td>Always <code>engagement_only</code></td><td>0.062</td><td>44.9%</td><td>83.4%</td></tr>
+    <tr><td>Untrained Qwen2.5-1.5B-Instruct</td><td>0.349</td><td>36.0%</td><td>–</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Those two constants are the most important numbers in the whole study. "Always no" gets <strong>84% accuracy while being useless</strong>. "Always <code>engagement_only</code>" gets <strong>44.9% exact match</strong>, which beats the untrained model. Any claim about a trained model has to clear them. The untrained model also failed to produce valid JSON about 3% of the time (parse rate 97%).</p>
+
+<h2 id="step3">5. Step 3: Supervised fine-tuning (SFT)</h2>
+<p>SFT means showing the model examples of the right answer and training it to imitate them. <code>sft_train.py</code> does this with <strong>LoRA</strong>, which trains small add-on matrices instead of all 1.5 billion weights.</p>
+<ul>
+  <li><strong>LoRA settings:</strong> rank 16, alpha 32, on all attention and MLP layers; about 18.5 million trainable parameters (1.2% of the model).</li>
+  <li><strong>Training:</strong> 3 epochs, learning rate 2e-4, gradient accumulation of 8, 128 optimizer steps. The target for each filing is the silver-label JSON.</li>
+  <li><strong>Result on gold:</strong> macro-F1 <strong>0.665</strong>, exact match 65.2%, mean accuracy 93.5%.</li>
+</ul>
+<p>SFT precision is high (0.80 to 1.00 on most fields) but recall is weak on rare fields: <code>capital_discipline</code> 0.22, <code>governance</code> 0.40, <code>capital_return</code> 0.40, <code>oppose_deal</code> 0.40, <code>sale_or_review</code> 0.47. The model plays it safe and leaves labels off. That's the gap RL could try to close.</p>
+<p>I trained SFT twice, because the first adapter was lost when the Colab runtime reset. The retrained version reproduced the original almost exactly (0.665 vs. 0.664 macro-F1, identical 65.2% exact match), so all comparisons hold.</p>
+
+<h2 id="step4">6. Step 4: Reinforcement learning (GRPO)</h2>
+<p>RL doesn't show the model the right answer. It lets the model try answers, scores them with a reward function, and nudges the model toward higher-scoring ones. I wrote a small custom version of <strong>GRPO</strong> (group relative policy optimization) in <code>grpo_train.py</code>:</p>
+<ol class="steps">
+  <li>Pick a batch of filings.</li>
+  <li>For each filing, sample <strong>8 different answers</strong> from the model (a "group").</li>
+  <li>Score each answer with the reward function.</li>
+  <li>Compute each answer's <strong>advantage</strong>: how much better or worse it scored than the group average, divided by the group's spread.</li>
+  <li>Update the model to make high-advantage answers more likely and low-advantage ones less likely.</li>
+</ol>
+<p>If all 8 answers for a filing score the same, there is nothing to learn from (zero advantage), so those groups are skipped. The log reports this as <code>signal_groups</code>, and it turns out to be a key diagnostic: when it hits 0 for most batches, the model has stopped exploring.</p>
+<p>This loop deliberately omits two safeguards common in production RL: a <strong>KL penalty</strong> (which keeps the model close to its starting point) and <strong>clipping</strong> (which caps how far a single update can move it). That keeps the code short, but it also makes collapse easier, and it's a limitation I state in the write-up.</p>
+
+<h3>The two rewards</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Reward</th><th>How it scores an answer</th><th>Weakness</th></tr></thead>
+  <tbody>
+    <tr><td>Naive</td><td>Fraction of the ten fields answered correctly</td><td>"All no" already scores about 0.84</td></tr>
+    <tr><td>Better</td><td>Jaccard overlap of predicted and true positive sets, minus 0.2 if <code>engagement_only</code> is combined with another label; unparseable answers get 0</td><td>A single-label answer scores 1.0 on many filings</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>Jaccard overlap</strong> is the size of the intersection of two sets divided by the size of their union. Predicting {board_seats} when the truth is {board_seats, governance} gives 1/2.</p>
+
+<h3>RL on top of SFT</h3>
+<p>The first RL runs started from the SFT adapter with gentle settings (learning rate 2e-5, temperature 1.0, small batches). Results on gold:</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Model</th><th>Macro-F1</th><th>Exact match</th></tr></thead>
+  <tbody>
+    <tr><td>SFT</td><td>0.665</td><td>65.2%</td></tr>
+    <tr><td>SFT + 30 GRPO steps</td><td>0.643</td><td>–</td></tr>
+    <tr><td>SFT + 60 GRPO steps</td><td>0.730</td><td>65.2%</td></tr>
+  </tbody>
+</table>
+</div>
+<p>The 60-step model improves macro-F1 by +0.065 (95% CI [−0.02, +0.17], P(better) = 0.94), so it is suggestive, not significant. Most of the gain is one field: <code>capital_discipline</code> went from F1 0.33 to 0.78. Note that the 30-step model scored <em>lower</em> than SFT, which is a reminder of how noisy a small gold set is.</p>
+
+<h2 id="step5">7. Step 5: The reward-hacking experiments</h2>
+<p>To test hacking directly, I trained from the <strong>untrained base model</strong> (no SFT) under each reward, with identical settings: 100 steps, learning rate 5e-5, 4 filings per step, 8 answers each, temperature 1.2, using the training prompts. Only the reward differed.</p>
+
+<h3>Naive reward: the model learned to say nothing</h3>
+<p>The share of dev answers that were all-zero rose from 0% (step 0 and 20) to 19% (step 40), then 70%, 73% and 59% at steps 60, 80 and 100. The naive reward on dev barely moved, staying between 0.87 and 0.93, while the stricter reward fell from 0.73 to about 0.23 to 0.28. On gold:</p>
+<ul>
+  <li>All-zero answers on <strong>66 of 89</strong> filings (SFT: 0 of 89).</li>
+  <li>Macro-F1 0.278 and exact match 16.9%, but mean accuracy still 87.2%.</li>
+  <li>F1 on <code>engagement_only</code> is 0.00 even though it's the most common label.</li>
+</ul>
+<p>Against SFT, the paired bootstrap says it is significantly worse on every metric: macro-F1 −0.39 (95% CI [−0.49, −0.24]), exact match −0.48, accuracy −0.06. A dashboard watching only accuracy would have shown a healthy model.</p>
+
+<h3>Better reward: it also collapsed, differently</h3>
+<p>I expected the stricter reward to avoid this. It didn't. Dev macro-F1 fell from 0.32 to 0.14. By step 40 the model answered exactly one label per filing (positives per filing locked at 1.00), and most batches had 0 of 4 groups with any learning signal. On gold:</p>
+<ul>
+  <li><code>board_seats</code> alone on 55 filings, <code>engagement_only</code> alone on 33, <code>oppose_deal</code> on 1.</li>
+  <li>Macro-F1 0.156, exact match 41.6%, which is <strong>below</strong> the 44.9% of always guessing <code>engagement_only</code>.</li>
+  <li>Against SFT: macro-F1 −0.51 (95% CI [−0.60, −0.37]), exact match −0.24, accuracy −0.09, all significant.</li>
+</ul>
+<p>The dev log was misleading here too: dev exact match climbed to 70% at step 40, which looked like progress. It was just the majority-class rate on a 37-filing dev set.</p>
+<p>I originally planned this experiment as "naive reward hacks, better reward doesn't." The data said otherwise, so the write-up says otherwise. That's a more honest and more interesting result.</p>
+
+<h2 id="step6">8. Step 6: The control run</h2>
+<p>To separate "bad reward" from "bad starting point," I re-ran the better reward with the same aggressive settings (lr 5e-5, temperature 1.2), but starting from the SFT adapter.</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Gold set</th><th>Macro-F1</th><th>Exact match</th><th>Mean accuracy</th></tr></thead>
+  <tbody>
+    <tr><td>SFT</td><td>0.665</td><td>65.2%</td><td>0.935</td></tr>
+    <tr><td>Control: SFT + better reward</td><td>0.640</td><td>67.4%</td><td>0.939</td></tr>
+    <tr><td>Difference (95% CI)</td><td>−0.026 [−0.13, +0.10]</td><td>+0.022 [−0.03, +0.09]</td><td>+0.004 [−0.01, +0.02]</td></tr>
+  </tbody>
+</table>
+</div>
+<ul>
+  <li><strong>No collapse.</strong> Positives per filing stayed between 1.05 and 1.30 on dev, and gold answers were varied (46 <code>engagement_only</code>, 12 <code>board_seats</code>, 7 <code>operations_costs</code>, and others).</li>
+  <li><strong>No improvement either.</strong> Every difference from SFT is within noise.</li>
+  <li><strong>One field broke.</strong> <code>capital_discipline</code> fell to F1 0.00 in this run, versus 0.78 in the gentle run. A plausible reading is that aggressive settings pushed the model to drop its rarest label; with 9 positives and one seed, treat that as a hypothesis, not a finding.</li>
+</ul>
+<p>The control comparison between aggressive and gentle RL on top of SFT: the gentle run is better on macro-F1 by +0.091 (95% CI [+0.015, +0.175]). The two runs also differ in batch size and step count, so I can't attribute that gap to one setting.</p>
+
+<h2 id="stats">9. How the results were tested</h2>
+<p>With 89 test filings, a difference of a few points can be luck. <code>bootstrap_compare.py</code> does a <strong>paired bootstrap</strong>: it resamples the 89 filings with replacement 2,000 times, scores both models on the same resampled set each time, and records the difference. The middle 95% of those differences is the confidence interval. "Paired" matters, because both models are scored on the same filings, which removes the noise from some filings simply being harder.</p>
+<p>The rule I applied: if the interval includes zero, the models are not distinguishable. That is why SFT vs. the control (−0.026, [−0.13, +0.10]) is "no difference" and SFT vs. the 60-step run (+0.065, [−0.02, +0.17]) is "suggestive, not significant."</p>
+<p><strong>Metrics:</strong> macro-F1 averages the F1 of the ten fields equally, so a rare field counts as much as a common one (good for catching a model that ignores rare labels). Exact match requires all ten fields right at once. Mean accuracy averages per-field accuracy, which is the metric the naive reward effectively optimized, and the easiest to game.</p>
+
+<h2 id="learned">10. What we learned</h2>
+<ol class="steps">
+  <li><strong>Cheap supervised training did most of the work.</strong> Fine-tuning nearly doubled macro-F1. RL added at most a modest, non-significant gain.</li>
+  <li><strong>A lazy answer can look excellent.</strong> "All no" scores 84% accuracy and 87% for the collapsed model. Always compare against constant baselines.</li>
+  <li><strong>A better-designed reward can still be hacked.</strong> Set overlap made all-zero costly but made a one-label answer cheap.</li>
+  <li><strong>Starting point decided collapse.</strong> The same reward and settings collapsed from the base model and did not from SFT.</li>
+  <li><strong>The signal vanishes when answers stop varying.</strong> Once all 8 samples agree, there is no gradient. A <code>signal_groups</code> count near 0 is the early warning.</li>
+  <li><strong>Watch several metrics.</strong> Accuracy hid the first collapse; exact match and dev reward hid the second.</li>
+  <li><strong>Be honest when the experiment contradicts the plan.</strong> The plan expected the better reward to avoid hacking; it didn't.</li>
+</ol>
+
+<h2 id="mistakes">11. Mistakes and surprises along the way</h2>
+<ul>
+  <li><strong>The gold CSVs were missing</strong> from the project folder, so the first build failed. I copied them from an older download and restored <code>exclusions.csv</code> from git.</li>
+  <li><strong>The baseline stalled on the laptop.</strong> Automatic device placement was offloading to CPU and disk. I made placement explicit, and the work moved to a Colab GPU.</li>
+  <li><strong>Colab environment issues:</strong> a <code>torchao</code> version conflict broke the peft import (fixed with <code>pip uninstall -y torchao</code>); long prompts caused out-of-memory errors during sampling (fixed by sampling in chunks and the <code>--gen_tokens</code> cap); terminal runs don't count as activity, so the idle timeout disconnected me (fixed by running from a notebook cell and saving to Drive).</li>
+  <li><strong>I lost the SFT adapter.</strong> It was saved to Colab's temporary storage, which is wiped when the runtime resets. Retraining reproduced it, but lesson: always save outputs to Drive.</li>
+  <li><strong>Commands run in the wrong place.</strong> A few Mac-only commands were run in Colab and the reverse; Python pasted into a bash terminal gave syntax errors. Notebook code goes in notebook cells.</li>
+  <li><strong>The plan's assumption about exclusions was off:</strong> 3 rows rather than about 30 (see Step 1).</li>
+</ul>
+
+<h2 id="limits">12. Limitations to state up front</h2>
+<ul>
+  <li><strong>One run per condition.</strong> I have no estimate of run-to-run variation. Dev metrics wobble a lot, for example a dip to 0.29 at one checkpoint that fully recovered.</li>
+  <li><strong>89 gold filings,</strong> with 3 to 9 positives on several fields. One filing can swing a per-field F1 by 0.2.</li>
+  <li><strong>The silver labels cap the ceiling.</strong> RL is rewarded for agreeing with Sonnet, not with me.</li>
+  <li><strong>Runs differ in more than one setting,</strong> so I can't isolate the cause of the <code>capital_discipline</code> gap.</li>
+  <li><strong>No KL penalty or clipping.</strong> Results describe unconstrained RL; a standard setup would probably have limited both collapses.</li>
+  <li><strong>I didn't test why the better reward collapsed.</strong> The aggressive learning rate and temperature are my best guess.</li>
+</ul>
+
+<h2 id="next">13. Next steps</h2>
+<ul>
+  <li><strong>Repeat with several seeds</strong> for the key conditions, so confidence intervals reflect run-to-run variation.</li>
+  <li><strong>Add a KL penalty</strong> and test whether it prevents both collapses from the base model.</li>
+  <li><strong>Redesign the reward:</strong> score each field with class weights, or use a macro-averaged reward, so that predicting nothing or one label can't score well.</li>
+  <li><strong>Tune learning rate and temperature separately,</strong> to learn which one caused the collapse.</li>
+  <li><strong>Grow the gold set</strong> and have a second person label part of it, so rare-field scores are less noisy.</li>
+</ul>
+
+<h2 id="pitch">14. How to explain it</h2>
+<p><strong>30-second version:</strong></p>
+<blockquote class="script">
+<p>I trained a 1.5-billion-parameter open model to label what activist investors demand in SEC filings, using Claude's labels to train it and my own hand labels to test it. Fine-tuning took it from 0.35 to 0.67 macro-F1. Then I tried reinforcement learning from the untrained model and watched it cheat: with an accuracy reward it learned to answer "no demands" on most filings and still scored 87% accuracy, and with a stricter reward it collapsed to a single label. Starting from the fine-tuned model avoided the collapse, but didn't significantly improve on it.</p>
+</blockquote>
+<p><strong>One-minute version:</strong></p>
+<blockquote class="script">
+<p>The task is tagging 13D filings with ten demand categories. Most labels are zero for most filings, so a model that always says "none" already gets 84% accuracy. I built the data with Claude as a labeler and kept 89 hand-labeled filings strictly for testing. LoRA fine-tuning lifted macro-F1 from 0.35 to 0.665. For reinforcement learning I wrote a small GRPO loop and compared two rewards, starting from the untrained model. The accuracy reward drifted to all-zero answers on 66 of 89 test filings, while accuracy stayed at 87%. My stricter set-overlap reward collapsed to one label per filing and scored below always guessing the most common label. A control run starting from the fine-tuned model didn't collapse, and a gentler RL run reached 0.73 macro-F1, but a paired bootstrap says that's not distinguishable from fine-tuning alone. These are single runs on a small test set, so I present them as failure modes, not rates.</p>
+</blockquote>
+
+<h2 id="questions">15. Interview questions to prepare for</h2>
+<dl class="qa">
+  <dt>Isn't it circular to train on Claude's labels?</dt>
+  <dd>It would be if I tested on them. I test only on 89 labels I made by hand and the model never saw. The caveat is that the model can at best approach Claude's labels, which agreed with mine about 83% of the time.</dd>
+  <dt>Why did the "better" reward collapse?</dt>
+  <dd>I haven't isolated it. A one-label answer scores a full 1.0 on a large share of filings, since <code>engagement_only</code> is the majority class, and my aggressive learning rate and temperature with no KL penalty likely pushed the model there. Once all 8 sampled answers agree, there's no learning signal. I'd test a KL penalty and a class-weighted reward next.</dd>
+  <dt>Why did starting from SFT avoid collapse?</dt>
+  <dd>The SFT model already produced varied, mostly correct answers, so it had a good policy to stay near. The base model had no such anchor. I can say that from the control run; I haven't tested the mechanism further.</dd>
+  <dt>Did RL actually help?</dt>
+  <dd>Not provably. The best run improved macro-F1 by 0.065, but the 95% interval includes zero, exact match was identical, and most of the gain was one rare field with 9 test examples.</dd>
+  <dt>How do you know the results aren't just noise?</dt>
+  <dd>I used a paired bootstrap on the same 89 filings. The collapses are far outside noise (intervals exclude zero). The small gains aren't, and I say so. The weakness is one seed per condition.</dd>
+  <dt>Why track more than accuracy?</dt>
+  <dd>Because accuracy rewards the majority answer. The collapsed model had 87% accuracy and half the F1 of a model that actually labels. I added constant baselines and macro-F1 specifically to catch that.</dd>
+  <dt>What would you do with more time?</dt>
+  <dd>Run multiple seeds, add a KL penalty, redesign the reward so empty and single-label answers can't score well, and expand the gold set with a second labeler.</dd>
+</dl>
+
+<h2 id="terms">16. Key terms</h2>
+<dl class="terms">
+  <dt>Reward hacking</dt><dd>A model finding a behavior that scores well on the reward without doing the intended task.</dd>
+  <dt>Mode collapse</dt><dd>A model's answers converging to one or two outputs regardless of input.</dd>
+  <dt>SFT (supervised fine-tuning)</dt><dd>Training a model to imitate example answers.</dd>
+  <dt>LoRA</dt><dd>Fine-tuning by training small added matrices instead of all weights; cheap and easy to save as an "adapter."</dd>
+  <dt>GRPO</dt><dd>An RL method that samples a group of answers per prompt and compares each to the group average, with no separate value model.</dd>
+  <dt>Advantage</dt><dd>How much better an answer scored than its group's average, scaled by the group's spread.</dd>
+  <dt>KL penalty</dt><dd>A term that penalizes the model for drifting from a reference model; a standard guard against collapse.</dd>
+  <dt>Silver vs. gold labels</dt><dd>Labels from an automatic labeler (Claude) versus labels made by hand and used only for testing.</dd>
+  <dt>Precision, recall, F1</dt><dd>Of the labels predicted, how many were right; of the true labels, how many were found; and their harmonic mean.</dd>
+  <dt>Macro-F1</dt><dd>The average F1 across the ten fields, weighting rare and common fields equally.</dd>
+  <dt>Exact match</dt><dd>The share of filings where all ten fields are right at once.</dd>
+  <dt>Jaccard overlap</dt><dd>Size of the intersection of two sets divided by the size of their union.</dd>
+  <dt>Paired bootstrap</dt><dd>Resampling the test filings many times and comparing two models on the same resamples to get a confidence interval.</dd>
+  <dt>Parse rate</dt><dd>The share of model outputs that were valid JSON with all ten fields.</dd>
+</dl>
+
+<footer>Independent student research project. Not investment advice.</footer>
+</main>
+</body>
+</html>
