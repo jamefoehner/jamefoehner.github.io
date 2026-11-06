@@ -173,6 +173,16 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <article class="project">
       <div class="meta">Nov 2026</div>
       <div>
+        <h3>Can a Small Model Learn to Read Activist Filings? Reinforcement Learning and Reward Hacking</h3>
+        <p>I trained a 1.5-billion-parameter open model (Qwen2.5-1.5B) to tag 13D filings with ten demand categories, using Claude-generated labels for training and my 89 hand-labeled filings only for testing. Fine-tuning lifted macro-F1 from 0.35 to 0.67. Reinforcement learning from the untrained model then found shortcuts that the headline metric missed. With a plain accuracy reward, it answered &ldquo;no demands&rdquo; on 66 of 89 filings and still scored 87% accuracy. With a stricter reward, it collapsed to a single label and did worse than always guessing the most common one. Starting from the fine-tuned model avoided the collapse, and the best run reached 0.73, which is not statistically distinguishable from fine-tuning alone. Single runs on a small test set, so these are demonstrations of failure modes, not rates.</p>
+        <div class="tags"><span>Python</span><span>PyTorch</span><span>LoRA fine-tuning</span><span>GRPO</span><span>Hugging Face</span><span>Bootstrap testing</span></div>
+        <div class="actions" style="margin-top:.6rem"><a href="https://github.com/jamefoehner/activist-target-screener/blob/main/docs/rl_reward_hacking.md">Write-up →</a></div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="meta">Nov 2026</div>
+      <div>
         <h3>Can Language Models Read Activist Filings? An LLM Evaluation</h3>
         <p>A benchmark testing whether language models can separate real activist demands from legal boilerplate in SEC 13D filings. I hand-labeled 100 filings across ten demand categories, seat counts, proxy-fight threats and tone, writing a labeling guide as I went; a second person labeled 20 independently. With the guide, Claude Sonnet 5.5 got every demand right on 83% of filings (98% of clear ones) and matched the reference labels on all 20 shared filings, versus 18 of 20 for the second human. The written rules mattered more than model size, and filings where every model disagreed with me surfaced a 7% label error rate.</p>
         <div class="tags"><span>Python</span><span>Claude API</span><span>LLM evaluation</span><span>Streamlit</span><span>SEC EDGAR</span></div>
@@ -224,7 +234,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <h2>Skills</h2>
     <dl class="skills">
       <dt>Languages</dt><dd>Python, R, SQL, C++</dd>
-      <dt>Machine learning</dt><dd>Supervised learning, gradient boosting, random forests, predictive modeling, walk-forward validation</dd>
+      <dt>Machine learning</dt><dd>Supervised learning, gradient boosting, random forests, predictive modeling, walk-forward validation, LLM fine-tuning (LoRA), reinforcement learning (GRPO), model evaluation</dd>
       <dt>Finance</dt><dd>Financial modeling (Excel), valuation (comparable companies, sum-of-the-parts), event studies</dd>
       <dt>Data</dt><dd>WRDS (CRSP, Compustat), SEC EDGAR, data cleaning, ETL, relational databases</dd>
     </dl>
