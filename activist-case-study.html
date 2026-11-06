@@ -1,0 +1,90 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Activist Research Case Study | James Foehner</title><style>
+:root {
+  --bg: #ffffff;
+  --ink: #14171c;
+  --muted: #5d6470;
+  --rule: #e3e6ea;
+  --accent: #2f5bd3;
+  --accent-soft: #eef2fd;
+  --bar: #c9d3ea;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1216; --ink: #e6e9ee; --muted: #98a1ae; --rule: #262c34;
+    --accent: #8aa8ff; --accent-soft: #182238; --bar: #334061; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1216; --ink: #e6e9ee; --muted: #98a1ae; --rule: #262c34;
+  --accent: #8aa8ff; --accent-soft: #182238; --bar: #334061; color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem; line-height: 1.6;
+}
+.wrap { max-width: 60rem; margin: 0 auto; padding: 0 1.25rem; }
+.mono { font-family: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+header.top { padding: 4rem 0 2.5rem; border-bottom: 1px solid var(--rule); }
+header.top h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1.05; margin: 0 0 .9rem; font-weight: 700; letter-spacing: -0.02em; }
+header.top p.lede { font-size: 1.15rem; color: var(--muted); max-width: 38rem; margin: 0 0 1.5rem; }
+nav.links { display: flex; flex-wrap: wrap; gap: .6rem; }
+nav.links a {
+  font-family: "IBM Plex Mono", Menlo, monospace; font-size: .85rem; text-decoration: none;
+  border: 1px solid var(--rule); padding: .45rem .8rem; border-radius: 4px; color: var(--ink);
+}
+nav.links a:hover { border-color: var(--accent); color: var(--accent); }
+nav.links a.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+
+section { padding: 3rem 0; border-bottom: 1px solid var(--rule); }
+section .wrap > h2 {
+  font-family: "IBM Plex Mono", Menlo, monospace; font-size: .8rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin: 0 0 1.5rem;
+}
+.featured { display: grid; grid-template-columns: 1.15fr 1fr; gap: 2.5rem; align-items: start; }
+@media (max-width: 46rem) { .featured { grid-template-columns: 1fr; gap: 1.75rem; } }
+.featured h3 { font-size: 1.55rem; line-height: 1.2; margin: 0 0 .4rem; letter-spacing: -0.01em; }
+.meta { font-family: "IBM Plex Mono", Menlo, monospace; font-size: .8rem; color: var(--muted); margin-bottom: 1rem; }
+.featured p { margin: 0 0 1rem; }
+ul.results { list-style: none; padding: 0; margin: 0 0 1.25rem; }
+ul.results li { padding: .55rem 0; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 7.5rem 1fr; gap: .75rem; }
+ul.results li:last-child { border-bottom: 1px solid var(--rule); }
+ul.results .num { font-family: "IBM Plex Mono", Menlo, monospace; font-weight: 500; color: var(--accent); }
+.panel { background: var(--accent-soft); padding: 1.25rem; border-radius: 6px; }
+.panel figure { margin: 0; }
+.panel svg { width: 100%; height: auto; display: block; }
+.panel svg text { font-family: "IBM Plex Mono", Menlo, monospace; fill: var(--ink); }
+.panel figcaption { font-size: .82rem; color: var(--muted); margin-top: .6rem; line-height: 1.45; }
+.panel .lesson { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--rule); font-size: .92rem; }
+.panel .lesson strong { display: block; font-family: "IBM Plex Mono", Menlo, monospace; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .3rem; }
+.actions { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; font-family: "IBM Plex Mono", Menlo, monospace; font-size: .88rem; }
+
+.project { display: grid; grid-template-columns: 11rem 1fr; gap: 1.5rem; padding: 1.5rem 0; border-top: 1px solid var(--rule); }
+.project:first-of-type { border-top: 0; padding-top: 0; }
+@media (max-width: 40rem) { .project { grid-template-columns: 1fr; gap: .35rem; } }
+.project h3 { font-size: 1.15rem; margin: 0 0 .35rem; }
+.project p { margin: 0 0 .6rem; }
+.tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+.tags span { font-family: "IBM Plex Mono", Menlo, monospace; font-size: .75rem; border: 1px solid var(--rule); padding: .15rem .5rem; border-radius: 3px; color: var(--muted); }
+
+.cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+@media (max-width: 40rem) { .cols { grid-template-columns: 1fr; } }
+.cols h3 { font-size: 1rem; margin: 0 0 .25rem; }
+.cols p { margin: 0 0 1rem; color: var(--ink); }
+dl.skills { margin: 0; display: grid; grid-template-columns: 8.5rem 1fr; gap: .5rem 1rem; }
+@media (max-width: 40rem) { dl.skills { grid-template-columns: 1fr; gap: .1rem; } dl.skills dd { margin-bottom: .6rem; } }
+dl.skills dt { font-family: "IBM Plex Mono", Menlo, monospace; font-size: .85rem; color: var(--muted); }
+dl.skills dd { margin: 0; }
+
+footer { padding: 2.5rem 0 3.5rem; color: var(--muted); font-size: .9rem; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
+ main{max-width:48rem;margin:auto;padding:2rem 1.25rem 4rem} h1{font-size:2.2rem;line-height:1.15}h2{font-size:1.3rem;margin-top:2rem}table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{text-align:left;border:1px solid var(--rule);padding:.65rem;vertical-align:top}th{background:var(--accent-soft)}</style></head><body><main><a href="index.html">← James Foehner portfolio</a><h1>Activist investing research and filing analysis</h1><p>I built a research workflow that uses SEC filings and financial data to identify potential activist targets, test an investment thesis, and monitor new campaigns. The project combines a predictive screener, a Post Holdings investment memo, and a live filing-analysis app.</p><p><a href="https://activist-monitor.streamlit.app/">Live app</a> · <a href="https://github.com/jamefoehner/activist-target-screener">Screener and research code</a> · <a href="https://github.com/jamefoehner/activist-monitor">Monitor code</a> · <a href="https://jamefoehner.github.io/post-holdings-memo.html">Investment memo</a></p><h2>The problem</h2><p>Activist research involves two different questions: which companies deserve closer attention, and what an investor actually wants after filing a position. I built a model to prioritize companies for research and a separate tool to extract demands from new 13D filings.</p><h2>What I built</h2><p>I collected 232 activist campaigns from SEC filings and joined the research to WRDS financial and return data. I trained a gradient-boosting screener on roughly 44,000 firm-years of peer-relative Compustat data, using walk-forward validation. The portfolio reports a one-year gap between training and test data and an evaluation period of 2016–2025.</p><p>I used the screener to select Post Holdings for deeper research, then built an Excel model comparing debt-funded buybacks with selling Weetabix and paying down debt. The model estimated roughly $111 per share versus $77 under the compared scenarios. These are scenario estimates, not realized returns.</p><p>The live Streamlit app retrieves activist filings, extracts the section describing the investor’s purpose, and uses Claude to classify ten demand categories. Users can search roughly 2,600 companies and inspect target scores, campaign histories, and recent filings. Labels appear alongside filing text so readers can check them.</p><h2>Results</h2><div style="overflow-x:auto"><table><tr><th>Component</th><th>Evaluation</th><th>Result</th></tr><tr><td>Target screener</td><td>Walk-forward validation</td><td>AUC 0.73; top-ranked 10% captured 27% of future targets</td></tr><tr><td>Filing monitor</td><td>89 hand-labeled filings</td><td>Macro-F1 0.84; all ten categories correct on 76% of filings</td></tr><tr><td>LLM benchmark</td><td>Separate 100-filing benchmark</td><td>All demand labels matched on 83% of filings with the labeling guide</td></tr><tr><td>Small-model fine-tuning</td><td>89 hand-labeled test filings</td><td>Macro-F1 increased from 0.35 to 0.67</td></tr></table></div><p>These evaluations measure different tasks and datasets. The 83% benchmark result should not be substituted for the monitor’s 76% exact-match result. Model rankings prioritize research; they do not measure investment returns.</p><h2>How the evidence changed my thesis</h2><p>I tested whether deleveraging would support a valuation re-rating and whether separating businesses would unlock value, including an analysis of 182 spin-offs since 2010. Neither assumption held in my tests, so I revised the Post Holdings pitch around capital allocation. The final memo reflects what the evidence supported.</p><h2>A model failure I investigated</h2><p>In a follow-up experiment, I fine-tuned Qwen2.5-1.5B with LoRA and implemented GRPO reinforcement learning. Optimizing plain accuracy from the base model produced no-demand answers on 66 of 89 filings while still reporting 87% accuracy. A set-overlap reward also collapsed to a single label. Starting from the fine-tuned model avoided collapse, but the best 0.73 macro-F1 was not statistically distinguishable from fine-tuning alone in paired bootstrap tests.</p><h2>Limitations</h2><p>The monitor’s test set contains 89 hand-labeled filings, and governance and capital-discipline categories are weaker than others. Labels should be reviewed against source text. The RL experiments use single runs and a small test set; they demonstrate failure modes rather than estimate how often those failures occur. The investment scenarios depend on their assumptions and are not evidence of realized performance.</p><h2>What this demonstrates</h2><p>I can build a data pipeline, evaluate predictive and language models, deploy a usable application, and explain when the evidence does not support a result. The repository contains the deeper methods and research write-ups.</p></main></body></html>

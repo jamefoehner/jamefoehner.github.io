@@ -104,9 +104,11 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 <header class="top">
   <div class="wrap">
     <h1>James Foehner</h1>
-    <p class="lede">Data science student at Northeastern University. I build machine learning models and research tools, mostly around financial markets, and turn them into decisions someone could actually act on.</p>
+    <p class="lede">I build data pipelines, machine learning models, and AI tools for financial research. I’m graduating from Northeastern University in May 2027 and seeking full-time roles in AI, data science, and investment analytics.</p>
     <nav class="links" aria-label="Contact and links">
-      <a class="primary" href="James_Foehner_Resume.pdf">Resume (PDF)</a>
+      <a class="primary" href="https://activist-monitor.streamlit.app/">Try the filing monitor</a>
+      <a href="James_Foehner_AI_Data_Resume.pdf">AI and data resume</a>
+      <a href="James_Foehner_Investment_Analytics_Resume.pdf">Investment resume</a>
       <a href="https://github.com/jamefoehner">GitHub</a>
       <a href="https://www.linkedin.com/in/james-foehner/">LinkedIn</a>
       <a href="mailto:foehner.j@northeastern.edu">foehner.j@northeastern.edu</a>
@@ -120,9 +122,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <h2>Featured project</h2>
     <div class="featured">
       <div>
-        <h3>Activist Hedge Fund Target Screener &amp; Post Holdings Activist Pitch</h3>
+        <h3>Activist investing research and filing analysis</h3>
         <div class="meta">Oct 2026 · Python · SQL · WRDS (CRSP, Compustat) · SEC EDGAR · Excel</div>
-        <p>I collected 232 activist hedge fund campaigns from SEC 13D filings, measured how target stocks reacted, and trained a model to predict which companies activists will target next. I then used it to find Post Holdings and wrote a full activist pitch with an Excel valuation model.</p>
+        <p>I built a workflow that screens companies for activist interest, tests an investment thesis, and monitors new SEC filings. It combines a predictive model, a Post Holdings valuation, and a live app that classifies investor demands.</p>
         <ul class="results">
           <li><span class="num">+7.0%</span><span>stock return vs. the market in the three days around a 13D filing (t = 13.3, 227 campaigns)</span></li>
           <li><span class="num">27%</span><span>of future targets caught in the model's top 10% in a walk-forward test, 2016–2025 (AUC 0.73)</span></li>
@@ -130,6 +132,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <li><span class="num">182</span><span>spin-offs since 2010 analyzed to test whether separating Post's businesses would add value</span></li>
         </ul>
         <div class="actions">
+          <a href="activist-case-study.html">Read the case study →</a>
           <a href="https://github.com/jamefoehner/activist-target-screener">Code &amp; README →</a>
           <a href="post-holdings-memo.html">Investment memo →</a>
           <a href="https://github.com/jamefoehner/activist-target-screener/tree/main/case_study">Excel model →</a>
@@ -181,6 +184,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       </div>
     </article>
 
+    <details style="margin:1.5rem 0"><summary style="cursor:pointer;font-weight:600">Supporting research: fine-tuning, LLM evaluation, and information diffusion</summary>
     <article class="project">
       <div class="meta">Nov 2026</div>
       <div>
@@ -210,6 +214,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <div class="actions" style="margin-top:.6rem"><a href="https://github.com/jamefoehner/activist-target-screener/blob/main/docs/diffusion_study.md">Write-up →</a></div>
       </div>
     </article>
+    </details>
 
     <article class="project">
       <div class="meta">Jan – Apr 2026</div>
