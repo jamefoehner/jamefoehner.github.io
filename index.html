@@ -1,282 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>James Foehner — Data Science &amp; Financial Research</title>
-<meta name="description" content="James Foehner: data science student at Northeastern University building machine learning models and financial research tools.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="James Foehner builds machine learning models, AI tools, and financial research pipelines. Northeastern University, May 2027. Explore projects, research, and live applications.">
+<meta name="theme-color" content="#f6f4ee">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #ffffff;
-  --ink: #14171c;
-  --muted: #5d6470;
-  --rule: #e3e6ea;
-  --accent: #2f5bd3;
-  --accent-soft: #eef2fd;
-  --bar: #c9d3ea;
-  color-scheme: light;
-  box-sizing: border-box;
-  padding-top: env(safe-area-inset-top, 0px);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0f1216; --ink: #e6e9ee; --muted: #98a1ae; --rule: #262c34;
-    --accent: #8aa8ff; --accent-soft: #182238; --bar: #334061; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0f1216; --ink: #e6e9ee; --muted: #98a1ae; --rule: #262c34;
-  --accent: #8aa8ff; --accent-soft: #182238; --bar: #334061; color-scheme: dark;
-}
-*, *::before, *::after { box-sizing: inherit; }
-html { scroll-padding-top: env(safe-area-inset-top, 0px); }
-body {
-  margin: 0; background: var(--bg); color: var(--ink);
-  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
-  font-size: 1rem; line-height: 1.6;
-}
-.wrap { max-width: 60rem; margin: 0 auto; padding: 0 1.25rem; }
-.mono { font-family: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace; }
-a { color: var(--accent); text-underline-offset: 2px; }
-a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-header.top { padding: 4rem 0 2.5rem; border-bottom: 1px solid var(--rule); }
-header.top h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1.05; margin: 0 0 .9rem; font-weight: 700; letter-spacing: -0.02em; }
-header.top p.lede { font-size: 1.15rem; color: var(--muted); max-width: 38rem; margin: 0 0 1.5rem; }
-nav.links { display: flex; flex-wrap: wrap; gap: .6rem; }
-nav.links a {
-  font-family: "IBM Plex Mono", Menlo, monospace; font-size: .85rem; text-decoration: none;
-  border: 1px solid var(--rule); padding: .45rem .8rem; border-radius: 4px; color: var(--ink);
-}
-nav.links a:hover { border-color: var(--accent); color: var(--accent); }
-nav.links a.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
-
-section { padding: 3rem 0; border-bottom: 1px solid var(--rule); }
-section .wrap > h2 {
-  font-family: "IBM Plex Mono", Menlo, monospace; font-size: .8rem; font-weight: 500;
-  text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin: 0 0 1.5rem;
-}
-.featured { display: grid; grid-template-columns: 1.15fr 1fr; gap: 2.5rem; align-items: start; }
-@media (max-width: 46rem) { .featured { grid-template-columns: 1fr; gap: 1.75rem; } }
-.featured h3 { font-size: 1.55rem; line-height: 1.2; margin: 0 0 .4rem; letter-spacing: -0.01em; }
-.meta { font-family: "IBM Plex Mono", Menlo, monospace; font-size: .8rem; color: var(--muted); margin-bottom: 1rem; }
-.featured p { margin: 0 0 1rem; }
-ul.results { list-style: none; padding: 0; margin: 0 0 1.25rem; }
-ul.results li { padding: .55rem 0; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 7.5rem 1fr; gap: .75rem; }
-ul.results li:last-child { border-bottom: 1px solid var(--rule); }
-ul.results .num { font-family: "IBM Plex Mono", Menlo, monospace; font-weight: 500; color: var(--accent); }
-.panel { background: var(--accent-soft); padding: 1.25rem; border-radius: 6px; }
-.panel figure { margin: 0; }
-.panel svg { width: 100%; height: auto; display: block; }
-.panel svg text { font-family: "IBM Plex Mono", Menlo, monospace; fill: var(--ink); }
-.panel figcaption { font-size: .82rem; color: var(--muted); margin-top: .6rem; line-height: 1.45; }
-.panel .lesson { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--rule); font-size: .92rem; }
-.panel .lesson strong { display: block; font-family: "IBM Plex Mono", Menlo, monospace; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .3rem; }
-.actions { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; font-family: "IBM Plex Mono", Menlo, monospace; font-size: .88rem; }
-
-.project { display: grid; grid-template-columns: 11rem 1fr; gap: 1.5rem; padding: 1.5rem 0; border-top: 1px solid var(--rule); }
-.project:first-of-type { border-top: 0; padding-top: 0; }
-@media (max-width: 40rem) { .project { grid-template-columns: 1fr; gap: .35rem; } }
-.project h3 { font-size: 1.15rem; margin: 0 0 .35rem; }
-.project p { margin: 0 0 .6rem; }
-.tags { display: flex; flex-wrap: wrap; gap: .4rem; }
-.tags span { font-family: "IBM Plex Mono", Menlo, monospace; font-size: .75rem; border: 1px solid var(--rule); padding: .15rem .5rem; border-radius: 3px; color: var(--muted); }
-
-.cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-@media (max-width: 40rem) { .cols { grid-template-columns: 1fr; } }
-.cols h3 { font-size: 1rem; margin: 0 0 .25rem; }
-.cols p { margin: 0 0 1rem; color: var(--ink); }
-dl.skills { margin: 0; display: grid; grid-template-columns: 8.5rem 1fr; gap: .5rem 1rem; }
-@media (max-width: 40rem) { dl.skills { grid-template-columns: 1fr; gap: .1rem; } dl.skills dd { margin-bottom: .6rem; } }
-dl.skills dt { font-family: "IBM Plex Mono", Menlo, monospace; font-size: .85rem; color: var(--muted); }
-dl.skills dd { margin: 0; }
-
-footer { padding: 2.5rem 0 3.5rem; color: var(--muted); font-size: .9rem; }
-footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
+:root{--paper:#f6f4ee;--white:#fffefa;--ink:#182a36;--muted:#59666c;--line:#d9ddd5;--accent:#ac482a;--soft:#eceee6;--green:#386250;color-scheme:light}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 'DM Sans',sans-serif}a{color:inherit;text-underline-offset:5px}a:hover{color:var(--accent)}a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:6px}::selection{background:#efd1b7}.wrap{width:min(1180px,calc(100% - 80px));margin:auto}.mono,.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase}.eyebrow{display:flex;align-items:center;gap:10px;color:var(--muted);margin:0 0 22px}.eyebrow:before{content:'';width:18px;height:2px;background:var(--accent)}h1,h2,h3,p{margin-top:0}h1,h2{font-family:'DM Serif Display',Georgia,serif;font-weight:400;line-height:1.08;letter-spacing:-.035em}h3{line-height:1.25;letter-spacing:-.025em;font-weight:600}p{color:var(--muted)}.skip{position:absolute;left:20px;top:-100px;background:var(--white);padding:12px;z-index:20}.skip:focus{top:12px}.topbar{border-bottom:1px solid var(--line);background:var(--paper)}.nav{min-height:86px;display:flex;align-items:center;justify-content:space-between;gap:25px}.brand{display:flex;align-items:center;gap:13px;font-size:15px;font-weight:650;text-decoration:none}.monogram{background:var(--ink);color:var(--paper);display:grid;place-items:center;width:36px;height:36px;font:14px 'DM Serif Display',serif;border-radius:50%}.navlinks{display:flex;gap:30px;align-items:center;font-size:13px}.navlinks a{text-decoration:none}.navlinks .nav-contact{border-bottom:1px solid var(--ink);padding-bottom:3px}.hero{padding:84px 0 64px;display:grid;grid-template-columns:1.35fr .65fr;gap:75px;align-items:end}.hero h1{font-size:clamp(52px,6.5vw,86px);margin-bottom:26px}.hero h1 em{color:var(--accent);font-weight:400}.hero-copy{max-width:555px;font-size:18px;line-height:1.65;margin-bottom:28px}.buttons{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.button{display:inline-flex;gap:25px;align-items:center;justify-content:space-between;padding:13px 20px;background:var(--ink);color:var(--white);font-size:13px;font-weight:550;text-decoration:none;border:1px solid var(--ink);border-radius:3px;transition:background .2s,transform .2s}.button:hover{color:var(--white);background:#304652;transform:translateY(-2px)}.button.secondary{background:transparent;color:var(--ink);border-color:#bac2be}.button.secondary:hover{background:var(--soft)}.hero-note{border-top:2px solid var(--ink);padding-top:24px;margin-bottom:4px}.status{font-size:12px;color:var(--green);display:flex;gap:8px;align-items:center;margin-bottom:25px}.status:before{content:'';height:7px;width:7px;border-radius:50%;background:var(--green)}.hero-note h2{font-size:28px;line-height:1.2;letter-spacing:-.02em;margin-bottom:15px}.hero-note p{font-size:14px;line-height:1.7}.hero-note .location{margin:26px 0 0;font-size:11px;color:var(--muted)}.discipline{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:11px}.discipline span:last-child{color:var(--ink)}section{padding:80px 0;scroll-margin-top:20px}.section-head{display:flex;justify-content:space-between;gap:35px;align-items:end;margin-bottom:35px}.section-head .eyebrow{margin-bottom:14px}.section-head h2{font-size:45px;margin-bottom:0}.section-head>p{max-width:350px;font-size:14px;margin:0}.feature{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);background:var(--white);border-radius:6px;overflow:hidden}.feature-copy{padding:42px}.project-index{color:var(--accent);margin-bottom:24px;display:block}.feature h3{font-size:31px;max-width:390px;margin-bottom:18px}.feature-copy>p{font-size:15px;max-width:440px}.tags{display:flex;gap:7px;flex-wrap:wrap;margin:24px 0}.tags span{font:10px 'IBM Plex Mono',monospace;color:var(--muted);padding:6px 9px;background:var(--soft);border-radius:3px}.text-links{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;font-weight:550}.feature-visual{background:#e9ede5;padding:40px;display:flex;flex-direction:column;justify-content:center}.chart-head{display:flex;align-items:start;justify-content:space-between;gap:16px;margin-bottom:22px}.chart-head h4{font-size:16px;font-weight:550;line-height:1.4;max-width:250px;margin:0}.chart-head .mono{font-size:10px;color:var(--muted);white-space:nowrap}.bar-row{display:grid;grid-template-columns:105px 1fr 35px;align-items:center;gap:12px;margin:19px 0;font-size:12px}.bar-track{height:20px;border-left:1px solid #b2bcb2;background:repeating-linear-gradient(to right,transparent,transparent calc(33.333% - 1px),#d4dbd1 calc(33.333% - 1px),#d4dbd1 33.333%)}.bar{height:100%;background:#9baea2;width:var(--w)}.bar-row.best .bar{background:var(--accent)}.bar-row.best{font-weight:650}.bar-row b{font-family:'IBM Plex Mono',monospace;font-size:12px}.chart-note{font-size:11px;line-height:1.6;margin:22px 0 0;padding-top:16px;border-top:1px solid #cbd3c8}.metrics{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-top:0;border-radius:0 0 5px 5px;background:var(--white)}.metric{padding:25px 30px;border-right:1px solid var(--line)}.metric:last-child{border:0}.metric strong{display:block;font-family:'DM Serif Display',serif;font-size:32px;font-weight:400;line-height:1.2}.metric span{display:block;font-size:12px;color:var(--muted);margin-top:7px}.monitor{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;margin-top:55px}.monitor h3{font-size:30px;margin-bottom:15px}.monitor p{font-size:15px}.app-frame{background:#e2e7e2;border:1px solid #d0d8d0;padding:18px;border-radius:6px;display:block;transition:transform .2s}.app-frame:hover{transform:translateY(-3px)}.frame-title{font:10px 'IBM Plex Mono',monospace;display:flex;justify-content:space-between;gap:12px;color:var(--muted);padding:0 0 14px}.app-frame img{width:100%;height:auto;display:block;border-radius:3px;border:1px solid #d2d8d1}.monitor-stats{display:flex;gap:30px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin:22px 0}.monitor-stats strong{font-size:23px;display:block;line-height:1.3;font-weight:500}.monitor-stats span{font-size:11px;color:var(--muted)}.tiny{font-size:12px!important;line-height:1.6}.research{background:var(--ink);color:var(--paper)}.research .eyebrow,.research p{color:#bbc6c9}.research .eyebrow:before{background:#e99973}.research-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #41515a;border-bottom:1px solid #41515a}.research-card{padding:30px 28px 30px 0;border-right:1px solid #41515a;display:flex;flex-direction:column;align-items:start}.research-card+ .research-card{padding-left:28px}.research-card:last-child{border:0;padding-right:0}.research-card .mono{color:#e99973;font-size:10px;margin-bottom:26px}.research-card h3{font-size:22px;line-height:1.3;margin-bottom:16px}.research-card p{font-size:14px}.research-card .finding{margin:8px 0 20px;color:var(--paper);font-size:13px;line-height:1.65}.research-card a{margin-top:auto;font-size:12px;color:var(--paper)}.research-card a:hover{color:#e99973}.more-projects{padding-bottom:0}.project-row{display:grid;grid-template-columns:150px 1fr 210px;gap:35px;padding:30px 0;border-top:1px solid var(--line)}.project-row:last-child{border-bottom:1px solid var(--line)}.project-row>.mono{color:var(--muted);font-size:10px;padding-top:5px}.project-row h3{font-size:22px;margin-bottom:10px}.project-row p{font-size:14px;max-width:650px;margin-bottom:0}.project-row .tags{margin:5px 0;align-content:start}.about{display:grid;grid-template-columns:1fr 1fr;gap:75px}.about h2{font-size:43px;margin-bottom:25px}.about p{font-size:15px}.education{margin-top:30px;border-top:1px solid var(--line);padding-top:24px}.education strong{font-size:15px;font-weight:550}.education p{font-size:13px;margin:7px 0}.skill-row{border-top:1px solid var(--line);padding:20px 0}.skill-row:last-child{border-bottom:1px solid var(--line)}.skill-row h3{font-size:12px;margin-bottom:8px;font-family:'IBM Plex Mono',monospace;font-weight:500}.skill-row p{font-size:14px;margin:0}.contact{padding:55px 0;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:35px}.contact h2{font-size:42px;margin:0 0 12px}.contact p{margin:0;font-size:14px}.contact .buttons{justify-content:end}.footer{border-top:1px solid var(--line);padding:25px 0 35px;display:flex;justify-content:space-between;gap:20px;font-size:11px;color:var(--muted)}.footer div{display:flex;gap:22px}.footer a{text-decoration:none}
+@media(min-width:1500px){.hero{padding-top:110px;padding-bottom:85px}}
+@media(max-width:950px){.wrap{width:calc(100% - 48px)}.hero{gap:40px;grid-template-columns:1.2fr .8fr}.hero h1{font-size:62px}.feature-copy,.feature-visual{padding:28px}.bar-row{grid-template-columns:90px 1fr 30px;gap:8px;font-size:11px}.monitor{gap:30px}.project-row{grid-template-columns:120px 1fr}.project-row .tags{grid-column:2}.about{gap:40px}.contact{align-items:start;flex-direction:column}.contact .buttons{justify-content:start}}
+@media(max-width:680px){.wrap{width:calc(100% - 36px)}.nav{min-height:74px;gap:12px;flex-wrap:wrap;padding:16px 0}.brand{font-size:14px}.navlinks{gap:17px;font-size:12px}.navlinks .nav-contact{display:none}.hero{grid-template-columns:1fr;padding:48px 0 35px;gap:35px}.hero h1{font-size:clamp(45px,12vw,67px);max-width:550px}.hero-copy{font-size:16px}.hero-note{display:grid;grid-template-columns:1fr;gap:0}.hero-note h2{font-size:25px}.hero-note p{margin-bottom:8px}.hero-note .location{margin-top:12px}.status{margin-bottom:15px}.discipline{flex-wrap:wrap;gap:8px;font-size:9px}.discipline span:last-child{width:100%}section{padding:55px 0}.section-head{display:block;margin-bottom:26px}.section-head h2{font-size:36px}.section-head>p{margin-top:15px}.feature,.monitor,.about{grid-template-columns:1fr}.feature-copy{padding:27px 24px}.feature-visual{padding:28px 24px}.feature h3{font-size:28px}.metrics{grid-template-columns:1fr}.metric{border-right:0;border-bottom:1px solid var(--line);padding:18px 24px;display:flex;align-items:center;gap:20px}.metric strong{font-size:28px;min-width:90px}.metric span{margin:0}.monitor{gap:25px;margin-top:40px}.monitor .app-frame{order:2}.monitor h3{font-size:28px}.research-grid{grid-template-columns:1fr}.research-card,.research-card+ .research-card{padding:28px 0;border-right:0;border-bottom:1px solid #41515a}.research-card .mono{margin-bottom:14px}.research-card h3{font-size:24px}.project-row{grid-template-columns:1fr;gap:10px;padding:25px 0}.project-row .tags{grid-column:1;margin-top:8px}.about{gap:30px}.about h2,.contact h2{font-size:36px}.footer{flex-direction:column;gap:10px}.contact .buttons{width:100%}.button{gap:18px}.contact .button{font-size:12px}.mono{overflow-wrap:anywhere}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
 </style>
 </head>
 <body>
-
-<header class="top">
-  <div class="wrap">
-    <h1>James Foehner</h1>
-    <p class="lede">I build data pipelines, machine learning models, and AI tools for financial research. I’m graduating from Northeastern University in May 2027 and seeking full-time roles in AI, data science, and investment analytics.</p>
-    <nav class="links" aria-label="Contact and links">
-      <a class="primary" href="https://activist-monitor.streamlit.app/">Try the filing monitor</a>
-      <a href="James_Foehner_AI_Data_Resume.pdf">AI and data resume</a>
-      <a href="James_Foehner_Investment_Analytics_Resume.pdf">Investment resume</a>
-      <a href="https://github.com/jamefoehner">GitHub</a>
-      <a href="https://www.linkedin.com/in/james-foehner/">LinkedIn</a>
-      <a href="mailto:foehner.j@northeastern.edu">foehner.j@northeastern.edu</a>
-    </nav>
-  </div>
-</header>
-
+<a class="skip" href="#work">Skip to projects</a>
+<header class="topbar"><nav class="nav wrap" aria-label="Main navigation"><a class="brand" href="#"><span class="monogram" aria-hidden="true">JF</span>James Foehner</a><div class="navlinks"><a href="#work">Work</a><a href="#research">Research</a><a href="#about">About</a><a class="nav-contact" href="#contact">Get in touch ↗</a></div></nav></header>
 <main>
-<section id="featured">
-  <div class="wrap">
-    <h2>Featured project</h2>
-    <div class="featured">
-      <div>
-        <h3>Activist investing research and filing analysis</h3>
-        <div class="meta">Oct 2026 · Python · SQL · WRDS (CRSP, Compustat) · SEC EDGAR · Excel</div>
-        <p>I built a workflow that screens companies for activist interest, tests an investment thesis, and monitors new SEC filings. It combines a predictive model, a Post Holdings valuation, and a live app that classifies investor demands.</p>
-        <ul class="results">
-          <li><span class="num">+7.0%</span><span>stock return vs. the market in the three days around a 13D filing (t = 13.3, 227 campaigns)</span></li>
-          <li><span class="num">27%</span><span>of future targets caught in the model's top 10% in a walk-forward test, 2016–2025 (AUC 0.73)</span></li>
-          <li><span class="num">7th / 2,606</span><span>Post Holdings' rank among U.S. companies; pitch: sell Weetabix, pay down debt, stop debt-funded buybacks</span></li>
-          <li><span class="num">182</span><span>spin-offs since 2010 analyzed to test whether separating Post's businesses would add value</span></li>
-        </ul>
-        <div class="actions">
-          <a href="activist-case-study.html">Read the case study →</a>
-          <a href="https://github.com/jamefoehner/activist-target-screener">Code &amp; README →</a>
-          <a href="post-holdings-memo.html">Investment memo →</a>
-          <a href="https://github.com/jamefoehner/activist-target-screener/tree/main/case_study">Excel model →</a>
-        </div>
-      </div>
-      <div class="panel">
-        <figure>
-          <svg viewBox="0 0 360 190" role="img" aria-labelledby="lift-title lift-desc">
-            <title id="lift-title">Share of future activist targets caught in the model's top 10%</title>
-            <desc id="lift-desc">Random 10 percent, size only 5 percent, logistic regression 19 percent, gradient boosting 27 percent.</desc>
-            <text x="0" y="14" font-size="11" fill="var(--muted)">Targets caught in top 10% of ranked companies</text>
-            <text x="0" y="48" font-size="11">Random</text>
-            <rect x="118" y="36" width="69" height="16" fill="var(--bar)"/>
-            <text x="193" y="49" font-size="11">10%</text>
-            <text x="0" y="84" font-size="11">Size only</text>
-            <rect x="118" y="72" width="35" height="16" fill="var(--bar)"/>
-            <text x="159" y="85" font-size="11">5%</text>
-            <text x="0" y="120" font-size="11">Logistic</text>
-            <rect x="118" y="108" width="131" height="16" fill="var(--accent)" opacity="0.6"/>
-            <text x="255" y="121" font-size="11">19%</text>
-            <text x="0" y="156" font-size="11">Grad. boosting</text>
-            <rect x="118" y="144" width="186" height="16" fill="var(--accent)"/>
-            <text x="310" y="157" font-size="11" font-weight="500">27%</text>
-            <line x1="118" y1="30" x2="118" y2="168" stroke="var(--rule)"/>
-          </svg>
-          <figcaption>Out-of-sample, 27,834 company-years. Features use only information public at the time, with a one-year gap between training and test data.</figcaption>
-        </figure>
-        <div class="lesson">
-          <strong>What I learned</strong>
-          I tested two of my own assumptions against the data, that paying down debt would lift Post's valuation and that a spin-off would unlock value. Neither held, so I rebuilt the pitch around what did.
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="wrap">
+<div class="hero"><div><p class="eyebrow">Data science · AI · Financial research</p><h1>Turning data into<br><em>better questions.</em><br>And useful tools.</h1><p class="hero-copy">I’m James, a data science student at Northeastern. I build machine learning models and AI tools to investigate markets, test ideas, and make research easier to use.</p><div class="buttons"><a class="button" href="#work">Explore my work <span aria-hidden="true">↓</span></a><a class="button secondary" href="James_Foehner_AI_Data_Resume.pdf">View résumé <span aria-hidden="true">↗</span></a></div></div><aside class="hero-note"><div class="status">Seeking full-time roles · May 2027</div><h2>From an SEC filing<br>to an investment thesis.</h2><p>My latest work connects an activist-target screener, a valuation case study, and a live app that reads new filings.</p><a href="activist-case-study.html" style="font-size:13px;font-weight:550">Follow the research →</a><p class="location mono">Based in Boston, MA<br>Northeastern University / Class of 2027</p></aside></div>
+<div class="discipline mono"><span>Build the pipeline.</span><span>Test the model.</span><span>Question the result.</span><span>Selected work / 2025–2026</span></div>
+<section id="work"><div class="section-head"><div><p class="eyebrow">01 / Selected work</p><h2>Research, built into something.</h2></div><p>Projects that move from raw data to a tested model, a clear argument, or a working application.</p></div>
+<article class="feature"><div class="feature-copy"><span class="project-index mono">01 — Predictive modeling &amp; investment research</span><h3>Finding the next<br>activist target.</h3><p>A research pipeline built from SEC filings and WRDS data. I screened companies for activist interest, tested the historical returns, and used the model to develop a Post Holdings investment thesis.</p><div class="tags"><span>Python</span><span>SQL</span><span>CRSP / Compustat</span><span>Excel</span></div><div class="text-links"><a href="activist-case-study.html">Case study ↗</a><a href="https://github.com/jamefoehner/activist-target-screener">Code ↗</a><a href="post-holdings-memo.html">Investment memo ↗</a><a href="https://github.com/jamefoehner/activist-target-screener/tree/main/case_study">Excel model ↗</a></div></div><div class="feature-visual"><div class="chart-head"><h4>Future targets captured<br>in the top-ranked 10%</h4><span class="mono">Out of sample<br>2016–2025</span></div><div role="img" aria-label="Targets captured in the top 10 percent: random selection 10 percent, size-only baseline 5 percent, logistic regression 19 percent, gradient boosting 27 percent."><div class="bar-row"><span>Random</span><div class="bar-track"><div class="bar" style="--w:33.333%"></div></div><b>10%</b></div><div class="bar-row"><span>Size only</span><div class="bar-track"><div class="bar" style="--w:16.667%"></div></div><b>5%</b></div><div class="bar-row"><span>Logistic</span><div class="bar-track"><div class="bar" style="--w:63.333%"></div></div><b>19%</b></div><div class="bar-row best"><span>Grad. boosting</span><div class="bar-track"><div class="bar" style="--w:90%"></div></div><b>27%</b></div></div><p class="chart-note">Walk-forward evaluation · AUC 0.73<br>27,834 test company-years. Features use information available at the time, with a one-year gap between training and test data.</p></div></article>
+<div class="metrics"><div class="metric"><strong>+7.0%</strong><span>Three-day return vs. market<br>227 campaigns · t = 13.3</span></div><div class="metric"><strong>7th</strong><span>Post Holdings’ screen rank<br>Among 2,606 U.S. companies</span></div><div class="metric"><strong>182</strong><span>Spin-offs analyzed<br>Testing the separation thesis</span></div></div>
+<article class="monitor"><a class="app-frame" href="https://activist-monitor.streamlit.app/" aria-label="Open the live Activist Filing Monitor"><div class="frame-title"><span>ACTIVIST FILING MONITOR</span><span>LIVE APP ↗</span></div><img src="https://raw.githubusercontent.com/jamefoehner/activist-monitor/main/docs/screenshot.webp" alt="Activist Filing Monitor interface showing SEC filings and extracted investor demands" loading="lazy" width="1280" height="800"></a><div><span class="project-index mono">02 — Applied AI / Live application</span><h3>Read the filing.<br>Find the intent.</h3><p>A daily SEC filing monitor that extracts Item 4 and uses Claude to classify ten demand categories. Search roughly 2,600 companies, explore campaign histories, and check each label against the source text.</p><div class="monitor-stats"><div><strong>0.84</strong><span>Macro-F1</span></div><div><strong>76%</strong><span>Exact match</span></div><div><strong>89</strong><span>Hand-labeled test filings</span></div></div><p class="tiny">Evaluated on original 13Ds; live amendments may differ. Governance and capital discipline remain weaker categories, so labels are presented for review.</p><div class="text-links"><a href="https://activist-monitor.streamlit.app/">Try the live app ↗</a><a href="https://github.com/jamefoehner/activist-monitor">View code ↗</a></div></div></article>
+</section></div>
+<section class="research" id="research"><div class="wrap"><div class="section-head"><div><p class="eyebrow">02 / Research notes</p><h2>What happens when<br>you test the assumptions?</h2></div><p>Three follow-up studies on model behavior, evaluation, and how information reaches markets.</p></div><div class="research-grid">
+<article class="research-card"><span class="mono">01 / Fine-tuning &amp; reinforcement learning</span><h3>When a model learns<br>to game the reward.</h3><p>I fine-tuned Qwen2.5-1.5B with LoRA, then tested GRPO rewards. From the base model, an accuracy reward produced all-zero answers on 66 of 89 filings while still reporting 87% field accuracy.</p><p class="finding">Fine-tuning: macro-F1 0.35 → 0.67.<br>Best RL run: 0.73; not statistically distinguishable from fine-tuning alone.</p><a href="https://github.com/jamefoehner/activist-target-screener/blob/main/docs/rl_reward_hacking.md">Read the study ↗</a></article>
+<article class="research-card"><span class="mono">02 / LLM evaluation</span><h3>Can language models<br>read between the boilerplate?</h3><p>I labeled 100 filings and tested whether models distinguish actual investor demands from legal boilerplate. Written labeling rules mattered more than moving to the larger model.</p><p class="finding">83% exact match on 86 scored filings.<br>Model disagreements helped identify six reference-label errors.</p><a href="https://github.com/jamefoehner/activist-target-screener/blob/main/docs/llm_eval_writeup.md">Read the benchmark ↗</a></article>
+<article class="research-card"><span class="mono">03 / Information diffusion</span><h3>Does the market<br>absorb the news at once?</h3><p>Across 225 campaigns, I tested whether post-filing drift concentrates where attention is low. The price-delay effect survived several robustness checks; illiquidity explained the apparent size effect.</p><p class="finding">The median campaign absorbed 46% of its measured move on days 0–1. The rest unfolded over the following three weeks.</p><a href="https://github.com/jamefoehner/activist-target-screener/blob/main/docs/diffusion_study.md">Read the analysis ↗</a></article>
+</div></div></section>
+<div class="wrap"><section class="more-projects" id="projects"><div class="section-head"><div><p class="eyebrow">03 / More projects</p><h2>A broader set of problems.</h2></div></div>
+<article class="project-row"><span class="mono">Jan – Apr 2026</span><div><h3>NBA Prediction AI</h3><p>A machine learning pipeline on roughly 80,000 rows of NBA play-by-play data. Gradient boosting predicts in-game win probability (ROC-AUC 0.84; Brier score 0.071), with play classification and player-stat predictions in a Streamlit app.</p></div><div class="tags"><span>Python</span><span>scikit-learn</span><span>Streamlit</span><span>Plotly</span></div></article>
+<article class="project-row"><span class="mono">Aug – Dec 2025</span><div><h3>Boston Airbnb Price Prediction</h3><p>Benchmarked five regression models on more than 3,500 listings. A tuned random forest reduced average error from roughly $110 to $75 and improved test R² from 0.12 to 0.48. Location and host listing count emerged as leading price drivers.</p></div><div class="tags"><span>Python</span><span>Random forest</span><span>Cross-validation</span><span>Geospatial analysis</span></div></article>
+<article class="project-row"><span class="mono">May – Jul 2025</span><div><h3>Aircraft Incident Database</h3><p>A normalized relational database with an R-based ETL pipeline and cloud-hosted MySQL. SQL views, stored procedures, and integrity checks support incident reporting and airline analysis.</p></div><div class="tags"><span>R</span><span>MySQL</span><span>SQL</span><span>ETL</span></div></article>
 </section>
-
-<section id="projects">
-  <div class="wrap">
-    <h2>Other projects</h2>
-
-    <article class="project">
-      <div class="meta">Nov 2026</div>
-      <div>
-        <h3>Activist Filing Monitor (live web app)</h3>
-        <p>A web app that tracks new SEC 13D filings from major activist investors, pulls out the section where each investor explains its plans, and uses Claude to tag what it wants: board seats, a sale, buybacks, and seven other categories. It refreshes daily on its own. Search any of about 2,600 companies to see its activist-target score from my screener, past campaigns and their returns, and recent filings. Every label sits next to the filing text so it can be checked, and filings that do not amend that section are marked rather than labeled. On my 89 hand-labeled filings the labeler scored macro-F1 0.84 and got all ten categories right on 76% of them (always guessing the most common label gets 45%). Governance and capital discipline are its weakest categories, so the page tells users to treat labels as drafts.</p>
-        <a href="https://activist-monitor.streamlit.app/"><img src="https://raw.githubusercontent.com/jamefoehner/activist-monitor/main/docs/screenshot.webp" alt="Screenshot of the Activist Filing Monitor showing filing cards with the demands the model found" style="width:100%;max-width:640px;border:1px solid #ddd;border-radius:8px;margin:.5rem 0" loading="lazy"></a>
-        <div class="tags"><span>Python</span><span>Streamlit</span><span>Claude API</span><span>SEC EDGAR</span><span>pytest</span></div>
-        <div class="actions" style="margin-top:.6rem"><a href="https://activist-monitor.streamlit.app/">Live app →</a><a href="https://github.com/jamefoehner/activist-monitor">Code →</a></div>
-      </div>
-    </article>
-
-    <details style="margin:1.5rem 0"><summary style="cursor:pointer;font-weight:600">Supporting research: fine-tuning, LLM evaluation, and information diffusion</summary>
-    <article class="project">
-      <div class="meta">Nov 2026</div>
-      <div>
-        <h3>Can a Small Model Learn to Read Activist Filings? Reinforcement Learning and Reward Hacking</h3>
-        <p>I trained a 1.5-billion-parameter open model (Qwen2.5-1.5B) to tag 13D filings with ten demand categories, using Claude-generated labels for training and my 89 hand-labeled filings only for testing. Fine-tuning lifted macro-F1 from 0.35 to 0.67. Reinforcement learning from the untrained model then found shortcuts that the headline metric missed. With a plain accuracy reward, it answered &ldquo;no demands&rdquo; on 66 of 89 filings and still scored 87% accuracy. With a stricter reward, it collapsed to a single label and did worse than always guessing the most common one. Starting from the fine-tuned model avoided the collapse, and the best run reached 0.73, which is not statistically distinguishable from fine-tuning alone. Single runs on a small test set, so these are demonstrations of failure modes, not rates.</p>
-        <div class="tags"><span>Python</span><span>PyTorch</span><span>LoRA fine-tuning</span><span>GRPO</span><span>Hugging Face</span><span>Bootstrap testing</span></div>
-        <div class="actions" style="margin-top:.6rem"><a href="https://github.com/jamefoehner/activist-target-screener/blob/main/docs/rl_reward_hacking.md">Write-up →</a></div>
-      </div>
-    </article>
-
-    <article class="project">
-      <div class="meta">Nov 2026</div>
-      <div>
-        <h3>Can Language Models Read Activist Filings? An LLM Evaluation</h3>
-        <p>A benchmark testing whether language models can separate real activist demands from legal boilerplate in SEC 13D filings. I hand-labeled 100 filings across ten demand categories, seat counts, proxy-fight threats and tone, writing a labeling guide as I went; a second person labeled 20 independently. With the guide, Claude Sonnet 5.5 got every demand right on 83% of filings (98% of clear ones) and matched the reference labels on all 20 shared filings, versus 18 of 20 for the second human. The written rules mattered more than model size, and filings where every model disagreed with me surfaced a 7% label error rate.</p>
-        <div class="tags"><span>Python</span><span>Claude API</span><span>LLM evaluation</span><span>Streamlit</span><span>SEC EDGAR</span></div>
-        <div class="actions" style="margin-top:.6rem"><a href="https://github.com/jamefoehner/activist-target-screener/blob/main/docs/llm_eval_writeup.md">Write-up →</a></div>
-      </div>
-    </article>
-
-    <article class="project">
-      <div class="meta">Nov 2026</div>
-      <div>
-        <h3>Do Activist Filings Reach Prices Slowly? An Information Diffusion Study</h3>
-        <p>A follow-up to the activist project testing gradual information diffusion. Across 225 campaigns, targets absorbed only about 46% of their price move on the filing day and the next; the rest drifted in over three weeks. The drift was concentrated in stocks that normally respond slowly to market news and in filings on busy news days. The price-delay effect survived outlier trimming, median regression, an illiquidity control, and a multiple-testing adjustment. The apparent small-company effect did not, because illiquidity explained it.</p>
-        <div class="tags"><span>Python</span><span>CRSP</span><span>I/B/E/S</span><span>Event study</span><span>Robust regression</span></div>
-        <div class="actions" style="margin-top:.6rem"><a href="https://github.com/jamefoehner/activist-target-screener/blob/main/docs/diffusion_study.md">Write-up →</a></div>
-      </div>
-    </article>
-    </details>
-
-    <article class="project">
-      <div class="meta">Jan – Apr 2026</div>
-      <div>
-        <h3>NBA Prediction AI</h3>
-        <p>An end-to-end machine learning pipeline on about 80,000 rows of NBA play-by-play data. A gradient boosting model predicts in-game win probability (ROC-AUC 0.84, Brier score 0.071), beating a logistic regression baseline. A random forest classifies plays across six imbalanced event types (68% accuracy), and three regressors predict player points, assists and rebounds (±4.1 points MAE). Everything is served in an interactive Streamlit app.</p>
-        <div class="tags"><span>Python</span><span>scikit-learn</span><span>Streamlit</span><span>Plotly</span></div>
-      </div>
-    </article>
-
-    <article class="project">
-      <div class="meta">Aug – Dec 2025</div>
-      <div>
-        <h3>Airbnb Price Prediction Model</h3>
-        <p>Predicts nightly prices for more than 3,500 Boston Airbnb listings. I benchmarked five regression models with grid search and cross-validation. The tuned random forest cut average error from about $110 to $75 (32%) and raised test R² from 0.12 to 0.48. Feature importance and geospatial analysis showed location and host listing count were the strongest price drivers.</p>
-        <div class="tags"><span>Python</span><span>scikit-learn</span><span>Feature engineering</span><span>Geospatial analysis</span></div>
-      </div>
-    </article>
-
-    <article class="project">
-      <div class="meta">May – Jul 2025</div>
-      <div>
-        <h3>Aircraft Incident Database &amp; Analytics</h3>
-        <p>A normalized (3NF) relational database for aircraft incident data, loaded through an R-based ETL pipeline into a cloud-hosted MySQL database. SQL views and stored procedures support incident reporting and airline analysis, with integrity checks against the source data.</p>
-        <div class="tags"><span>R</span><span>MySQL</span><span>SQL</span><span>ETL</span></div>
-      </div>
-    </article>
-  </div>
-</section>
-
-<section id="skills">
-  <div class="wrap">
-    <h2>Skills</h2>
-    <dl class="skills">
-      <dt>Languages</dt><dd>Python, R, SQL, C++</dd>
-      <dt>Machine learning</dt><dd>Supervised learning, gradient boosting, random forests, predictive modeling, walk-forward validation, LLM fine-tuning (LoRA), reinforcement learning (GRPO), model evaluation</dd>
-      <dt>Finance</dt><dd>Financial modeling (Excel), valuation (comparable companies, sum-of-the-parts), event studies</dd>
-      <dt>Data</dt><dd>WRDS (CRSP, Compustat), SEC EDGAR, data cleaning, ETL, relational databases</dd>
-    </dl>
-  </div>
-</section>
-
-<section id="background">
-  <div class="wrap">
-    <h2>Education</h2>
-    <div>
-      <div>
-        <h3>Northeastern University, Khoury College of Computer Sciences</h3>
-        <p class="meta" style="margin-bottom:.4rem">Candidate for B.S. in Data Science · Expected May 2027 · Boston, MA</p>
-        <p>Coursework: Programming with Data Science, Machine Learning &amp; Data Mining, Programming in C++, Statistics for Economists, Algorithms</p>
-      </div>
-    </div>
-  </div>
-</section>
-</main>
-
-<footer>
-  <div class="wrap">
-    <span>James Foehner · Boston, MA</span>
-    <span><a href="mailto:foehner.j@northeastern.edu">foehner.j@northeastern.edu</a> · <a href="https://www.linkedin.com/in/james-foehner/">LinkedIn</a> · <a href="https://github.com/jamefoehner">GitHub</a></span>
-  </div>
-</footer>
-
-</body>
-</html>
+<section class="about" id="about"><div><p class="eyebrow">04 / About</p><h2>I like following a question<br>all the way through.</h2><p>My work spans data engineering, predictive modeling, and financial research. I’m interested in the whole process: collecting the data, building something useful, and understanding where the results stop being reliable.</p><p>In my Post Holdings research, the evidence challenged both my deleveraging and spin-off assumptions. Revising the thesis was as much a part of the project as building the model.</p><div class="education"><strong>Northeastern University</strong><p>Khoury College of Computer Sciences<br>B.S. in Data Science, expected May 2027 · Boston, MA</p></div></div><div><p class="eyebrow">Tools &amp; methods</p><div class="skill-row"><h3>Programming &amp; data</h3><p>Python, R, SQL, C++ · ETL · Relational databases · SEC EDGAR · WRDS / CRSP / Compustat</p></div><div class="skill-row"><h3>Machine learning</h3><p>scikit-learn · Gradient boosting · Random forests · Walk-forward validation · Model evaluation</p></div><div class="skill-row"><h3>Language models</h3><p>PyTorch · Hugging Face · LoRA fine-tuning · GRPO · Claude API · Benchmark design</p></div><div class="skill-row"><h3>Financial research</h3><p>Excel modeling · Comparable-company valuation · Sum-of-the-parts · Event studies</p></div></div></section>
+<section class="contact" id="contact"><div><p class="eyebrow">Let’s connect</p><h2>Have an interesting problem?</h2><p>I’m seeking full-time opportunities in AI, data science, and investment analytics.</p></div><div class="buttons"><a class="button" href="mailto:foehner.j@northeastern.edu">Email James ↗</a><a class="button secondary" href="James_Foehner_Investment_Analytics_Resume.pdf">Investment résumé ↗</a></div></section>
+</div></main><footer class="footer wrap"><span>James Foehner · Boston, MA</span><div><a href="mailto:foehner.j@northeastern.edu">Email</a><a href="https://www.linkedin.com/in/james-foehner/">LinkedIn ↗</a><a href="https://github.com/jamefoehner">GitHub ↗</a><a href="#">Back to top ↑</a></div></footer>
+</body></html>
